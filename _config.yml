@@ -1,0 +1,17 @@
+title: CorpAI
+description: The open standard for AI agent organizations
+theme: jekyll-theme-cayman
+show_downloads: false
+
+plugins:
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
+
+include:
+  - CODEX.md
+  - CONTRIBUTING.md
+  - ROADMAP.md
+  - BADGE.md
