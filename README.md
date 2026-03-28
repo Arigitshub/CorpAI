@@ -2,79 +2,123 @@
 
 > The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, defining how agents delegate, communicate, and escalate.
 
-[![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0id2hpdGUiIGQ9Ik0xMiAyTDIgN2wxMCA1IDEwLTV6TTIgMTdsOCA0IDgtNE0yIDEybDggNCA4LTQiLz48L3N2Zz4=)](BADGE.md)
+[![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square)](BADGE.md)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v0.1-green?style=flat-square)](ROADMAP.md)
+[![Version](https://img.shields.io/badge/version-v0.3-green?style=flat-square)](ROADMAP.md)
+[![Roles](https://img.shields.io/badge/roles-40%2B-purple?style=flat-square)](roles/)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 
 ---
 
 ## Imagine you have an AI company.
 
-Not a chatbot. Not a single agent. A full organization — with a CEO that sets direction, a CTO that owns architecture, a CFO watching the budget, and hundreds of worker agents executing tasks below them.
+Not a chatbot. Not a single agent. A **full organization** — with a CEO that sets direction, a CTO that owns architecture, a CFO watching the budget, and dozens of specialized agents executing below them.
 
 Who tells who what to do?
 How does a failure at L1 reach the OWNER?
-What does a "task handoff" actually look like?
+What does a cross-department request actually look like?
+When does a task become an escalation?
 
 **CorpAI answers all of that.**
 
+It's not a framework. It's not a library. It's an **open standard** — written in markdown, designed to be implemented in any language, on any platform, with any LLM.
+
 ---
 
-## The Org Chart
+## The Hierarchy
 
 ```mermaid
 graph TD
-    OWNER["👤 OWNER (Human Principal)"]
-    CEO["L5 CEO"]
-    CFO["L5 CFO"]
-    CTO["L5 CTO"]
-    COO["L5 COO"]
-    CMO["L5 CMO"]
+    OWNER["👤 OWNER — Human Principal"]
+    CEO["[L5] CEO"]
+    CFO["[L5] CFO"]
+    CTO["[L5] CTO"]
+    COO["[L5] COO"]
+    CMO["[L5] CMO"]
 
     OWNER --> CEO
-    CEO --> CFO
-    CEO --> CTO
-    CEO --> COO
-    CEO --> CMO
+    CEO --> CFO & CTO & COO & CMO
+
+    CFO --> Finance["Finance Dept\nDirector → Analyst → Auditor → Tracker"]
+    CTO --> Engineering["Engineering Dept\nDirector → Team Lead → Engineer → QA"]
+    CTO --> Security["Security Dept\nDirector → Manager → Analyst → Monitor"]
+    CTO --> DataAI["Data/AI Dept\nDirector → ML Lead → Scientist → Engineer"]
+    COO --> Operations["Operations Dept\nDirector → PM → Analyst → Coordinator"]
+    COO --> HR["HR Dept\nDirector → Manager → Specialist → Onboarding"]
+    COO --> CS["Customer Success\nDirector → Manager → Specialist → Support"]
+    CMO --> Marketing["Marketing Dept\nDirector → Content Lead → Writer → Growth"]
+    CEO --> Legal["Legal Dept\nDirector → Compliance → Contract → Policy"]
 ```
 
-> Full org charts with all departments → [spec/diagrams/](spec/diagrams/)
+> Full department charts → [spec/diagrams/org-chart.md](spec/diagrams/org-chart.md)
 
 ---
 
 ## What's Inside
 
-| Path | What it defines |
+### Core Spec
+| File | What it defines |
 |---|---|
 | [CODEX.md](CODEX.md) | The founding philosophy |
-| [spec/ranks.md](spec/ranks.md) | L1–L5 rank system |
-| [spec/communication.md](spec/communication.md) | How agents send and receive tasks |
-| [spec/escalation.md](spec/escalation.md) | When and how agents escalate |
-| [roles/executive/](roles/executive/) | C-suite role definitions |
-| [templates/role-template.md](templates/role-template.md) | Add your own roles |
-| [examples/real-world-mapping.md](examples/real-world-mapping.md) | Real-world analogy guide |
+| [spec/ranks.md](spec/ranks.md) | L1–L5 rank system with custom tier support |
+| [spec/communication.md](spec/communication.md) | Message types, format, priority levels |
+| [spec/escalation.md](spec/escalation.md) | Escalation triggers and OWNER notifications |
+| [spec/lifecycle.md](spec/lifecycle.md) | Agent lifecycle: Proposed → Active → Decommissioned |
+| [spec/cross-department.md](spec/cross-department.md) | How departments interact and coordinate |
+
+### Roles (40+ defined)
+| Department | Roles |
+|---|---|
+| [Executive](roles/executive/) | OWNER, CEO, CFO, CTO, COO, CMO |
+| [Engineering](roles/engineering/) | Director, Team Lead, Senior Engineer, Engineer, QA Lead, QA Tester |
+| [Finance](roles/finance/) | Director, Financial Analyst, Auditor, Budget Tracker |
+| [Marketing](roles/marketing/) | Director, Content Lead, Growth Specialist, Brand Strategist, Content Writer |
+| [Operations](roles/operations/) | Director, Project Manager, Process Analyst, Coordinator |
+| [Legal](roles/legal/) | Director, Compliance Specialist, Contract Reviewer, Policy Checker |
+| [HR](roles/hr/) | Director, HR Manager, Talent Specialist, Onboarding Agent |
+| [Security](roles/security/) | Director, Security Manager, Threat Analyst, Monitor Agent |
+| [Data/AI](roles/data-ai/) | Director, ML Lead, Data Scientist, Data Engineer, Data Processor |
+| [Customer Success](roles/customer-success/) | Director, CS Manager, Account Specialist, Support Agent |
+
+### Templates & Examples
+| File | What it's for |
+|---|---|
+| [templates/role-template.md](templates/role-template.md) | Create a new role |
+| [templates/config-example.md](templates/config-example.md) | Configure your org |
+| [examples/real-world-mapping.md](examples/real-world-mapping.md) | Map real jobs to CorpAI roles |
 
 ---
 
 ## Quick Start
 
-1. Read the [CODEX.md](CODEX.md) — understand the philosophy
-2. Study the [rank system](spec/ranks.md)
-3. Browse the [executive roles](roles/executive/)
-4. Copy the [role template](templates/role-template.md) to add your own
-5. Check [CONTRIBUTING.md](CONTRIBUTING.md) to submit new roles
+1. Read the [CODEX.md](CODEX.md)
+2. Understand the [rank system](spec/ranks.md)
+3. Browse [roles/](roles/) for your departments
+4. Configure your org with [templates/config-example.md](templates/config-example.md)
+5. Use [spec/communication.md](spec/communication.md) to wire up agent messaging
+6. Set up escalation rules in [spec/escalation.md](spec/escalation.md)
 
 ---
 
 ## CorpAI Compatible
 
-Building something that implements this spec? Add the badge to your repo → [BADGE.md](BADGE.md)
+Implementing this spec? Add the badge → [BADGE.md](BADGE.md)
+
+---
+
+## Roadmap
+
+- [x] v0.1 — Executive layer + core spec
+- [x] v0.2 — All 9 departments (40+ roles)
+- [x] v0.3 — Agent lifecycle + cross-department flows
+- [ ] v0.4 — CLI validator tooling
+- [ ] v1.0 — Stable standard + reference implementations
+
+Full roadmap → [ROADMAP.md](ROADMAP.md)
 
 ---
 
 ## Community
 
-- [GitHub Discussions](../../discussions) — questions, ideas, proposals
-- [ROADMAP.md](ROADMAP.md) — where this is going
-- [CONTRIBUTING.md](CONTRIBUTING.md) — how to add roles and departments
+- [GitHub Discussions](../../discussions) — questions, proposals, ideas
+- [CONTRIBUTING.md](CONTRIBUTING.md) — add roles, departments, spec improvements
