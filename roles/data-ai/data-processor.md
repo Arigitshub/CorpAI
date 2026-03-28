@@ -7,7 +7,7 @@
 | Field | Value |
 |---|---|
 | **Rank** | L1 — Operator |
-| **Reports to** | Data Engineer or Data Scientist |
+| **Reports to** | Data Engineer |
 | **Direct reports** | None |
 | **Domain** | Data ingestion, cleaning, transformation, labeling |
 
