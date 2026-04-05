@@ -1,5 +1,7 @@
 # CorpAI
 
+![CorpAI Hero](assets/hero.png)
+
 > The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, defining how agents delegate, communicate, and escalate.
 
 [![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square)](BADGE.md)

@@ -1,5 +1,7 @@
 # Sales Department Org Chart
 
+![Sales Agent](../../../assets/sales_agent.png)
+
 ```mermaid
 graph TD
     CEO["[L5] CEO"]

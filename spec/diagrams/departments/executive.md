@@ -1,5 +1,7 @@
 # Executive Department Org Chart
 
+![Executive Agent](../../../assets/executive_agent.png)
+
 ```mermaid
 graph TD
     OWNER["👤 OWNER\nHuman Principal"]
