@@ -252,6 +252,32 @@ graph TD
 
 ---
 
+## 📊 Sales Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENFT1siW0w1XSBDRU8iXQogICAgU0RbIltMNF0gU2FsZXMgRGlyZWN0b3IiXQogICAgQUVbIltMM10gQWNjb3VudCBFeGVjdXRpdmVcbihBRSkiXQogICAgU0RSWyJbTDJdIFNhbGVzIERldmVsb3BtZW50XG5SZXAgKFNEUikiXQogICAgTFJbIltMMV0gTGVhZCBSZXNlYXJjaGVyIl0KCiAgICBDRU8gLS0+IFNECiAgICBTRCAtLT4gQUUKICAgIEFFIC0tPiBTRFIACiAgICBTRFIgLS0+IExSCiAgICBBRSAtLT4gTFI=)
+
+<details>
+<summary>View Source</summary>
+
+```mermaid
+graph TD
+    CEO["[L5] CEO"]
+    SD["[L4] Sales Director"]
+    AE["[L3] Account Executive\n(AE)"]
+    SDR["[L2] Sales Development\nRep (SDR)"]
+    LR["[L1] Lead Researcher"]
+
+    CEO --> SD
+    SD --> AE
+    AE --> SDR 
+    SDR --> LR
+    AE --> LR
+```
+
+</details>
+
+---
+
 ## 📞 Customer Success Department
 
 ![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENPT1siW0w1XSBDT08iXQogICAgQ1NEWyJbTDRdIENTIERpcmVjdG9yIl0KICAgIENTTVsiW0wzXSBDUyBNYW5hZ2VyIl0KICAgIEFTWyJbTDJdIEFjY291bnQgU3BlY2lhbGlzdCJdCiAgICBTQVsiW0wxXSBTdXBwb3J0IEFnZW50Il0KCiAgICBDT08gLS0+IENTRAogICAgQ1NEIC0tPiBDU00gJiBBUwogICAgQ1NNIC0tPiBTQQ==)
