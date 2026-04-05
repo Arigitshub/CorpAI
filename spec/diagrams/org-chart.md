@@ -4,7 +4,12 @@
 
 ---
 
-## Full Organization
+## 🏛️ Full Organization
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIE9XTkVSWyLwn5GkIE9XTkVSXG5IdW1hbiBQcmluY2lwYWwiXQogICAgQ0VPWyJbTDVdIENFTyJdCiAgICBDRk9bIltMNV0gQ0ZPIl0KICAgIENUT1siW0w1XSBDVE8iXQogICAgQ09PWyJbTDVdIENPTyJdCiAgICBDTU9bIltMNV0gQ01PIl0KCiAgICBPV05FUiAtLT4gQ0VPCiAgICBDRU8gLS0+IENGTyAmIENUTyAmIENPTyAmIENNTw==)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -19,9 +24,16 @@ graph TD
     CEO --> CFO & CTO & COO & CMO
 ```
 
+</details>
+
 ---
 
-## Finance Department
+## 💰 Finance Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENGT1siW0w1XSBDRk8iXQogICAgRkRbIltMNF0gRmluYW5jZSBEaXJlY3RvciJdCiAgICBGQVsiW0wyXSBGaW5hbmNpYWwgQW5hbHlzdCJdCiAgICBBVVsiW0wyXSBBdWRpdG9yIl0KICAgIEJUWyJbTDFdIEJ1ZGdldCBUcmFja2VyIl0KCiAgICBDRk8gLS0+IEZECiAgICBGRCAtLT4gRkEgJiBBVQogICAgRkEgLS0+IEJU)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -36,9 +48,16 @@ graph TD
     FA --> BT
 ```
 
+</details>
+
 ---
 
-## Engineering Department
+## ⚙️ Engineering Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENUT1siW0w1XSBDVE8iXQogICAgRURbIltMNF0gRW5naW5lZXJpbmcgRGlyZWN0b3IiXQogICAgVExbIltMM10gRW5naW5lZXJpbmcgVGVhbSBMZWFkIl0KICAgIFFBTFsiW0wzXSBRQSBMZWFkIl0KICAgIFNFWyJbTDJdIFNlbmlvciBFbmdpbmVlciJdCiAgICBFTkdbIltMMV0gRW5naW5lZXIiXQogICAgUUFUWyJbTDFdIFFBIFRlc3RlciJdCgogICAgQ1RPIC0tPiBFRAogICAgRUQgLS0+IFRMICYgUUFMCiAgICBUTCAtLT4gU0UKICAgIFNFIC0tPiBFTkcKICAgIFFBTCAtLT4gUUFU)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -57,26 +76,40 @@ graph TD
     QAL --> QAT
 ```
 
+</details>
+
 ---
 
-## Security Department
+## 📦 Product Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENFT1siW0w1XSBDRU8iXQogICAgUERbIltMNF0gUHJvZHVjdCBEaXJlY3RvciJdCiAgICBQTVsiW0wzXSBQcm9kdWN0IE1hbmFnZXIiXQogICAgUERlc1siW0wyXSBQcm9kdWN0IERlc2lnbmVyIl0KICAgIFVSWyJbTDFdIFVzZXIgUmVzZWFyY2hlciJdCgogICAgQ0VPIC0tPiBQRAogICAgUEQgLS0+IFBNCiAgICBQTSAtLT4gUERlcyAmIFVS)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
-    CTO["[L5] CTO"]
-    SD["[L4] Security Director"]
-    SM["[L3] Security Manager"]
-    TA["[L2] Threat Analyst"]
-    MA["[L1] Monitor Agent"]
+    CEO["[L5] CEO"]
+    PD["[L4] Product Director"]
+    PM["[L3] Product Manager"]
+    PDes["[L2] Product Designer"]
+    UR["[L1] User Researcher"]
 
-    CTO --> SD
-    SD --> SM & TA
-    SM --> MA
+    CEO --> PD
+    PD --> PM
+    PM --> PDes & UR
 ```
+
+</details>
 
 ---
 
-## Data/AI Department
+## 🧠 Data/AI Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENUT1siW0w1XSBDVE8iXQogICAgREFEWyJbTDRdIERhdGEvQUkgRGlyZWN0b3IiXQogICAgTUxbIltMM10gTUwgTGVhZCJdCiAgICBEU1siW0wyXSBEYXRhIFNjaWVudGlzdCJdCiAgICBERVsiW0wyXSBEYXRhIEVuZ2luZWVyIl0KICAgIERQWyJbTDFdIERhdGEgUHJvY2Vzc29yIl0KCiAgICBDVE8gLS0+IERBRAogICAgREFEIC0tPiBNTCAmIERFCiAgICBNTCAtLT4gRFMKICAgIERTIC0tPiBEUAogICAgREUgLS0+IERQ)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -94,9 +127,40 @@ graph TD
     DE --> DP
 ```
 
+</details>
+
 ---
 
-## Marketing Department
+## 🔐 Security Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENUT1siW0w1XSBDVE8iXQogICAgU0RbIltMNF0gU2VjdXJpdHkgRGlyZWN0b3IiXQogICAgU01bIltMM10gU2VjdXJpdHkgTWFuYWdlciJdCiAgICBUQVsiW0wyXSBUaHJlYXQgQW5hbHlzdCJdCiAgICBNQVsiW0wxXSBNb25pdG9yIEFnZW50Il0KCiAgICBDVE8gLS0+IFNECiAgICBTRCAtLT4gU00gJiBUQQogICAgU00gLS0+IE1B)
+
+<details>
+<summary>View Source</summary>
+
+```mermaid
+graph TD
+    CTO["[L5] CTO"]
+    SD["[L4] Security Director"]
+    SM["[L3] Security Manager"]
+    TA["[L2] Threat Analyst"]
+    MA["[L1] Monitor Agent"]
+
+    CTO --> SD
+    SD --> SM & TA
+    SM --> MA
+```
+
+</details>
+
+---
+
+## 📊 Marketing Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENNT1siW0w1XSBDTU8iXQogICAgTURbIltMNF0gTWFya2V0aW5nIERpcmVjdG9yIl0KICAgIENMWyJbTDNdIENvbnRlbnQgTGVhZCJdCiAgICBHU1siW0wyXSBHcm93dGggU3BlY2lhbGlzdCJdCiAgICBCU1siW0wyXSBCcmFuZCBTdHJhdGVnaXN0Il0KICAgIENXWyJbTDFdIENvbnRlbnQgV3JpdGVyIl0KCiAgICBDTU8gLS0+IE1ECiAgICBNRCAtLT4gQ0wgJiBHUyAmIEJTCiAgICBDTCAtLT4gQ1c=)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -112,9 +176,16 @@ graph TD
     CL --> CW
 ```
 
+</details>
+
 ---
 
-## Operations Department
+## 🚀 Operations Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENPT1siW0w1XSBDT08iXQogICAgT0RbIltMNF0gT3BlcmF0aW9ucyBEaXJlY3RvciJdCiAgICBQTVsiW0wzXSBQcm9qZWN0IE1hbmFnZXIiXQogICAgUEFbIltMMl0gUHJvY2VzcyBBbmFseXN0Il0KICAgIENPWyJbTDFdIENvb3JkaW5hdG9yIl0KCiAgICBDT08gLS0+IE9ECiAgICBPRCAtLT4gUE0gJiBQQQogICAgUE0gLS0+IENP)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -129,9 +200,16 @@ graph TD
     PM --> CO
 ```
 
+</details>
+
 ---
 
-## HR Department
+## 🤝 HR Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENPT1siW0w1XSBDT08iXQogICAgSFJEWyJbTDRdIEhSIERpcmVjdG9yIl0KICAgIEhSTVsiW0wzXSBIUiBNYW5hZ2VyIl0KICAgIFRTWyJbTDJdIFRhbGVudCBTcGVjaWFsaXN0Il0KICAgIE9BWyJbTDFdIE9uYm9hcmRpbmcgQWdlbnQiXQoKICAgIENPTyAtLT4gSFJECiAgICBIUkQgLS0+IEhSTSAmIFRTCiAgICBIUk0gLS0+IE9B)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -146,9 +224,16 @@ graph TD
     HRM --> OA
 ```
 
+</details>
+
 ---
 
-## Legal Department
+## ⚖️ Legal Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENFT1siW0w1XSBDRU8iXQogICAgTERbIltMNF0gTGVnYWwgRGlyZWN0b3IiXQogICAgQ1NbIltMMl0gQ29tcGxpYW5jZSBTcGVjaWFsaXN0Il0KICAgIENSWyJbTDJdIENvbnRyYWN0IFJldmlld2VyIl0KICAgIFBDWyJbTDFdIFBvbGljeSBDaGVja2VyIl0KCiAgICBDRU8gLS0+IExECiAgICBMRCAtLT4gQ1MgJiBDUgogICAgQ1MgLS0+IFBD)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -163,9 +248,16 @@ graph TD
     CS --> PC
 ```
 
+</details>
+
 ---
 
-## Customer Success Department
+## 📞 Customer Success Department
+
+![Chart](https://mermaid.ink/svg/Z3JhcGggVEQKICAgIENPT1siW0w1XSBDT08iXQogICAgQ1NEWyJbTDRdIENTIERpcmVjdG9yIl0KICAgIENTTVsiW0wzXSBDUyBNYW5hZ2VyIl0KICAgIEFTWyJbTDJdIEFjY291bnQgU3BlY2lhbGlzdCJdCiAgICBTQVsiW0wxXSBTdXBwb3J0IEFnZW50Il0KCiAgICBDT08gLS0+IENTRAogICAgQ1NEIC0tPiBDU00gJiBBUwogICAgQ1NNIC0tPiBTQQ==)
+
+<details>
+<summary>View Source</summary>
 
 ```mermaid
 graph TD
@@ -179,3 +271,5 @@ graph TD
     CSD --> CSM & AS
     CSM --> SA
 ```
+
+</details>
