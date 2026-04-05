@@ -5,6 +5,7 @@
 > The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, defining how agents delegate, communicate, and escalate.
 
 [![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square)](BADGE.md)
+[![Website](https://img.shields.io/badge/Portal-VOS--Live-blue?style=flat-square)](https://corpai-standard-vos.surge.sh)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-v1.0-green?style=flat-square)](ROADMAP.md)
 [![Roles](https://img.shields.io/badge/roles-46%2B-purple?style=flat-square)](roles/)
