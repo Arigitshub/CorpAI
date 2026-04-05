@@ -1,13 +1,17 @@
-# CorpAI
+# CorpAI v2.0 (The Soul Upgrade)
 
 ![CorpAI Hero](assets/hero.png)
 
-> The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, defining how agents delegate, communicate, and escalate.
+> The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, now with **Operational Soul Protocols**.
 
 [![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square)](BADGE.md)
-[![Website](https://img.shields.io/badge/Portal-VOS--Live-blue?style=flat-square)](https://corpai-standard-vos.surge.sh)
-[![MIT License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v1.0-green?style=flat-square)](ROADMAP.md)
+[![Website](https://img.shields.io/badge/VOS--Portal--Live-blue?style=flat-square)](https://corpai-standard-vos.surge.sh)
+[![Version](https://img.shields.io/badge/version-v2.0--SOUL-green?style=flat-square)](ROADMAP.md)
+
+### 🧬 What are "Soul Protocols"?
+Inspired by the industry-leading PaperclipAI standard, CorpAI v2.0 integrates **Prime Directives**, **Tool Mandates**, and **Forbidden States** directly into the corporate structural spec. This transforms agents from mere role-holders into **Autonomous Action Units**.
+
+- [**View v2.0 CEO Soul**](roles/executive/ceo.md)
 [![Roles](https://img.shields.io/badge/roles-46%2B-purple?style=flat-square)](roles/)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
 [![corpai CLI](https://img.shields.io/badge/CLI-corpai-orange?style=flat-square)](https://github.com/Arigitshub/corpai-cli)
