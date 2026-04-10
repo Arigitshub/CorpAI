@@ -1,36 +1,31 @@
-# CorpAI v2.0 (The Soul Upgrade)
+# CorpAI
 
-![CorpAI Hero](assets/hero.png)
-
-> The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, now with **Operational Soul Protocols**.
-
+[![Version](https://img.shields.io/badge/version-v1.0-brightgreen?style=flat-square)](CHANGELOG.md)
+[![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/corpai?style=flat-square)](https://pypi.org/project/corpai/)
+[![Stars](https://img.shields.io/github/stars/Arigitshub/CorpAI?style=flat-square)](https://github.com/Arigitshub/CorpAI/stargazers)
 [![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square)](BADGE.md)
-[![Website](https://img.shields.io/badge/VOS--Portal--Live-blue?style=flat-square)](https://corpai-standard-vos.surge.sh)
-[![Version](https://img.shields.io/badge/version-v2.0--SOUL-green?style=flat-square)](ROADMAP.md)
 
-### 🧬 What are "Soul Protocols"?
-Inspired by the industry-leading PaperclipAI standard, CorpAI v2.0 integrates **Prime Directives**, **Tool Mandates**, and **Forbidden States** directly into the corporate structural spec. This transforms agents from mere role-holders into **Autonomous Action Units**.
+**The open standard for AI agent organizations** — define, validate, and deploy AI teams with ranked roles, communication protocols, and escalation rules.
 
-- [**View v2.0 CEO Soul**](roles/executive/ceo.md)
-[![Roles](https://img.shields.io/badge/roles-46%2B-purple?style=flat-square)](roles/)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
-[![corpai CLI](https://img.shields.io/badge/CLI-corpai-orange?style=flat-square)](https://github.com/Arigitshub/corpai-cli)
+No framework lock-in. No library required. Just markdown — implementable in any language, on any platform, with any LLM.
 
 ---
 
-## Imagine you have an AI company.
+## Get Started in 3 Steps
 
-Not a chatbot. Not a single agent. A **full organization** — with a CEO that sets direction, a CTO that owns architecture, a CFO watching the budget, and dozens of specialized agents executing below them.
+```bash
+# 1. Install the CLI
+pip install corpai
 
-Who tells who what to do?
-How does a failure at L1 reach the OWNER?
-What does a cross-department request actually look like?
-When does a task become an escalation?
-What happens when two AI orgs need to work together?
+# 2. Clone the spec
+git clone https://github.com/Arigitshub/CorpAI && cd CorpAI
 
-**CorpAI answers all of that.**
-
-It's not a framework. It's not a library. It's an **open standard** — written in markdown, designed to be implemented in any language, on any platform, with any LLM.
+# 3. Validate and explore
+corpai lint          # validate all 46 roles
+corpai graph         # visualize the org tree
+corpai info          # org summary
+```
 
 ---
 
@@ -38,7 +33,7 @@ It's not a framework. It's not a library. It's an **open standard** — written 
 
 ```mermaid
 graph TD
-    OWNER["👤 OWNER — Human Principal"]
+    OWNER["OWNER — Human Principal"]
     CEO["[L5] CEO"]
     CFO["[L5] CFO"]
     CTO["[L5] CTO"]
@@ -59,45 +54,44 @@ graph TD
     CEO --> Legal["Legal\nDirector → Compliance → Contract → Policy"]
 ```
 
-> Full department charts → [spec/diagrams/org-chart.md](spec/diagrams/org-chart.md)
+Full charts → [spec/diagrams/org-chart.md](spec/diagrams/org-chart.md)
 
 ---
 
-## Quick Start
+## Why CorpAI
 
-```bash
-# Install the CLI
-pip install corpai
-
-# Validate any CorpAI org
-git clone https://github.com/Arigitshub/CorpAI
-cd CorpAI
-
-corpai lint                                              # validate all roles
-corpai graph                                             # ASCII org tree
-corpai simulate --from CEO --to "QA Tester" --priority P2   # trace a message
-corpai info                                              # org summary
-```
+- **Language-agnostic** — the spec is markdown. Implement it in Python, TypeScript, Go, or whatever you ship in.
+- **Production-ready structure** — 46 defined roles across 10 departments, with ranks (L1–L5), escalation rules, and cross-department protocols baked in.
+- **CLI-validated** — `corpai lint` catches broken chains, missing fields, and spec violations before you deploy.
 
 ---
 
-## What's Inside
+## The Ecosystem
 
-### Core Spec
+| Repo | What it is |
+|---|---|
+| [CorpAI](https://github.com/Arigitshub/CorpAI) | The spec — this repo |
+| [corpai-cli](https://github.com/Arigitshub/corpai-cli) | CLI to lint, visualize, simulate (`pip install corpai`) |
+| [corpai-runtime](https://github.com/Arigitshub/corpai-runtime) | Provider-agnostic agent execution engine |
+| [corpai-portal](https://github.com/Arigitshub/corpai-portal) | Interactive org chart dashboard |
+
+---
+
+## What's in the Spec
+
 | File | What it defines |
 |---|---|
-| [CODEX.md](CODEX.md) | The founding philosophy |
-| [spec/ranks.md](spec/ranks.md) | L1–L5 rank system with custom tier support |
+| [spec/ranks.md](spec/ranks.md) | L1–L5 rank system |
 | [spec/communication.md](spec/communication.md) | Message types, format, priority levels |
 | [spec/escalation.md](spec/escalation.md) | Escalation triggers and OWNER notifications |
 | [spec/lifecycle.md](spec/lifecycle.md) | Agent lifecycle: Proposed → Active → Decommissioned |
-| [spec/cross-department.md](spec/cross-department.md) | How departments interact and coordinate |
+| [spec/cross-department.md](spec/cross-department.md) | How departments interact |
 | [spec/multi-org.md](spec/multi-org.md) | Federation protocol for inter-org communication |
-| [spec/message-examples.md](spec/message-examples.md) | Real message examples for every type |
+| [spec/message-examples.md](spec/message-examples.md) | Real message examples |
 | [spec/glossary.md](spec/glossary.md) | Every term, defined |
-| [spec/faq.md](spec/faq.md) | Common questions answered |
 
-### Roles (46 defined)
+### Roles (46 defined across 10 departments)
+
 | Department | Roles |
 |---|---|
 | [Executive](roles/executive/) | OWNER, CEO, CFO, CTO, COO, CMO |
@@ -111,58 +105,17 @@ corpai info                                              # org summary
 | [Data/AI](roles/data-ai/) | Director, ML Lead, Data Scientist, Data Engineer, Data Processor |
 | [Customer Success](roles/customer-success/) | Director, CS Manager, Account Specialist, Support Agent |
 
-### Templates & Resources
-| File | What it's for |
-|---|---|
-| [templates/role-template.md](templates/role-template.md) | Create a new role |
-| [templates/config-example.md](templates/config-example.md) | Configure your org |
-| [examples/real-world-mapping.md](examples/real-world-mapping.md) | Map real jobs to CorpAI roles |
-| [CERTIFIED.md](CERTIFIED.md) | CorpAI Certified program |
-| [CHANGELOG.md](CHANGELOG.md) | Version history |
+---
+
+## Implementing CorpAI?
+
+Add the badge to your repo → [BADGE.md](BADGE.md)  
+Apply for CorpAI Certified status → [CERTIFIED.md](CERTIFIED.md)
 
 ---
 
-## CorpAI CLI
+## Contributing
 
-The official validator and tooling for this spec:
+PRs and proposals welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) to add roles, propose spec changes, or submit a certified implementation.
 
-```bash
-pip install corpai
-```
-
-| Command | What it does |
-|---|---|
-| `corpai lint` | Validates all role files — 11 checks + cross-role chain verification |
-| `corpai graph` | ASCII tree or Mermaid org chart, filter by dept |
-| `corpai simulate` | Traces every hop a TASK or ESCALATION makes |
-| `corpai info` | Org summary — roles, departments, rank distribution |
-
-→ [Arigitshub/corpai-cli](https://github.com/Arigitshub/corpai-cli)
-
----
-
-## CorpAI Compatible
-
-Implementing this spec? Add the badge to your repo → [BADGE.md](BADGE.md)
-
-Want CorpAI Certified status? → [CERTIFIED.md](CERTIFIED.md)
-
----
-
-## Roadmap
-
-- [x] v0.1 — Executive layer + core spec
-- [x] v0.2 — All 9 departments (46 roles)
-- [x] v0.3 — Agent lifecycle + cross-department flows
-- [x] v0.4 — CLI validator tooling (`pip install corpai`)
-- [x] v1.0 — Multi-org spec, glossary, FAQ, message examples, issue templates, certified program, changelog
-
-Full roadmap → [ROADMAP.md](ROADMAP.md)
-
----
-
-## Community
-
-- [GitHub Discussions](../../discussions) — questions, proposals, ideas
-- [CONTRIBUTING.md](CONTRIBUTING.md) — add roles, departments, spec improvements
-- [Issue Templates](.github/ISSUE_TEMPLATE/) — role submissions, spec proposals, bug reports, certifications
+[GitHub Discussions](../../discussions) — questions, ideas, proposals
