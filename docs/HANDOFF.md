@@ -63,8 +63,8 @@ Engineering release-candidate checks are complete as of 2026-04-26:
 
 Remaining manual account actions:
 
-- run the staged Google Apps Script once and approve Google permissions in the browser
-- rotate the broader Turso token from the Turso account, then update the Worker secret if needed
+- run the staged Google Apps Script once and approve Google permissions in the browser; Codex cannot complete this yet because the stored sheet URL is a placeholder and no Apps Script CLI auth is present locally
+- rotate the broader Turso token from the Turso account, then update the Worker secret if needed; Codex cannot complete this yet because no Turso Cloud CLI/API auth is present locally
 
 ## Current offer ladder
 

@@ -102,6 +102,8 @@ The product thesis is no longer "general AI org framework first." The current co
 - the portal still contains some legacy Supabase scaffolding files that are no longer the preferred direction
 - Google Apps Script authorization must still be completed in the browser
 - Turso database token rotation still requires Turso account access
+- 2026-04-26: Google CRM completion was attempted from Codex, but the stored sheet URL is a placeholder and no Google Apps Script CLI auth is present locally
+- 2026-04-26: Turso token rotation was attempted from Codex, but no Turso CLI/API auth is present locally; the available npm `turso` package is the SQLite shell, not the Turso Cloud CLI
 
 ## Validation
 
