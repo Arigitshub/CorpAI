@@ -14,6 +14,14 @@ Example:
 It is April 12, 2026 at 8:30 PM America/New_York. Continue CorpAI from docs/STATUS.md and docs/HANDOFF.md, then deploy the portal and wire the real Stripe links.
 ```
 
+For the next session, this is enough:
+
+```text
+Continue with CorpAI.
+```
+
+On that prompt, start with this file, `docs/STATUS.md`, and the DailyVinkel handoff at `D:\daily vinkel\CORPAI-HANDOFF.md`.
+
 ## Product direction
 
 CorpAI should be built and sold as:
@@ -60,11 +68,8 @@ Engineering release-candidate checks are complete as of 2026-04-26:
 - mobile typecheck passes
 - founder bridge mock and real Codex-backed missions pass
 - repository docs no longer include the live admin read token
-
-Remaining manual account actions:
-
-- run the staged Google Apps Script once and approve Google permissions in the browser; Codex cannot complete this yet because the stored sheet URL is a placeholder and no Apps Script CLI auth is present locally
-- rotate the broader Turso token from the Turso account, then update the Worker secret if needed; Codex cannot complete this yet because no Turso Cloud CLI/API auth is present locally
+- post-crash recovery pass completed: portal rebuilt with the live intake endpoint, republished to Surge, and smoke-checked across all v0.1 buyer routes
+- Turso token rotation completed: WSL Ubuntu 24.04 installed, Turso CLI installed, group token keys invalidated, fresh `corpai-intake` database token uploaded to the Worker secret, and local Turso account auth removed
 
 ## Current offer ladder
 
@@ -115,6 +120,7 @@ Current behavior:
 
 - if `NEXT_PUBLIC_INTAKE_ENDPOINT` is configured, `/intake` posts to the external intake service and redirects to `/success/?intake=submitted`
 - if that env is missing, `/intake` stays on the static-safe email/copy fallback path
+- 2026-04-26 post-crash recovery rebuilt and republished the static portal with `NEXT_PUBLIC_INTAKE_ENDPOINT=https://corpai-intake-service.arimail-57e.workers.dev/intake`
 
 Provisioning already completed:
 
@@ -122,6 +128,11 @@ Provisioning already completed:
 - Turso group `default` created in org `ariofficial`
 - Turso database `corpai-intake` created
 - Turso schema applied successfully
+- 2026-04-26: WSL Ubuntu 24.04 installed for the official Turso Cloud CLI path
+- 2026-04-26: Turso CLI `v1.0.20` installed in WSL at `/root/.turso/turso`
+- 2026-04-26: Turso group `default` token keys invalidated with `turso group tokens invalidate default --yes`
+- 2026-04-26: fresh database-scoped token for `corpai-intake` piped directly into `npx wrangler secret put TURSO_AUTH_TOKEN`
+- 2026-04-26: local Turso account auth token removed with `turso auth logout`
 - local end-to-end service check passed
 - live Worker deployed at `https://corpai-intake-service.arimail-57e.workers.dev/`
 - production portal rebuilt against `https://corpai-intake-service.arimail-57e.workers.dev/intake`
@@ -135,9 +146,7 @@ Deployment target:
 
 What is still missing:
 
-1. run the staged Google Apps Script once and complete the one-time Google authorization flow
-2. rotate the broader Turso account token after deployment
-3. continue replacing modeled proof with real customer proof
+1. continue replacing modeled proof with real customer proof
 
 Browser-agent prompt for the CRM handoff step:
 
@@ -146,8 +155,9 @@ Browser-agent prompt for the CRM handoff step:
 
 Current staged CRM handoff:
 
-- Google Sheet: `https://docs.google.com/spreadsheets/d/1B7T_example_id/edit`
+- Google Sheet: `https://docs.google.com/spreadsheets/d/1w66Zh56WxHY7zkN5cqabdNJxWAVbQm8TydyGILM-7ig/edit`
 - reference Apps Script saved in-repo at `docs/CRM_APPS_SCRIPT.gs`
+- 2026-04-26: Apps Script project `1Sih8cM6Ynv7EHgfPl0yOKvBbI93EH6mxN-JeY5AognOmCpd9lIbsb9dp` is bound to the sheet, `CORPAI_ADMIN_READ_TOKEN` is stored as a script property, and `syncCorpAILeads` imported live leads successfully
 
 ## Founder mobile app
 
@@ -201,6 +211,70 @@ Current bridge validation:
 - 2026-04-26: mobile default bridge URL updated to this PC's current Wi-Fi address, `http://192.168.1.101:8790`
 - 2026-04-26: real bridge mission completed on `127.0.0.1:8790` with `MOCK_CODEX=0` after changing the bridge to pass prompts via stdin to `codex exec -`
 
+## Post-crash validation
+
+Completed on 2026-04-26:
+
+- `npm run lint` passed in `corpai-portal`
+- `npm run build` passed in `corpai-portal` with the live intake endpoint configured
+- `npm run typecheck` passed in `corpai-founder-mobile`
+- `surge out corpai-standard-vos.surge.sh` published successfully
+- production portal returned `200` for `/`, `/pricing/`, `/buy/`, `/demo/`, `/demo/pr-review/`, `/case-study/pr-review/`, `/roi/`, `/intake/`, and `/success/`
+- live Worker `GET /health` returned `200 {"ok":true}`
+- live Worker `POST /intake` accepted a clearly labeled smoke-test submission
+- `wrangler secret list` confirmed `ADMIN_READ_TOKEN` and `TURSO_AUTH_TOKEN` are configured
+- local `npm run db:init` was not rerun because no local `.env.local` with Turso credentials is present; the deployed Worker path remains healthy
+- token-rotation smoke passed after replacing `TURSO_AUTH_TOKEN`: Worker `GET /health`, Worker `POST /intake`, and production `/intake/` all returned healthy responses
+
+## DailyVinkel test company
+
+DailyVinkel is the next practical CorpAI test-company path.
+
+Current facts:
+
+- domain: `dailyvinkel.com`
+- live-site/source repo: `https://github.com/Arigitshub/collive-reimagined`
+- local clone: `D:\daily-vinkel-collive-reimagined`
+- recovery workspace: `D:\daily vinkel`
+- handoff: `D:\daily vinkel\CORPAI-HANDOFF.md`
+- Supabase project is paused and cannot be unpaused
+- recovery Vercel deployment: `https://daily-vinkel-collive-reimagined.vercel.app/`
+- Vercel project: `aris-projects-fdb64b1f/daily-vinkel-collive-reimagined`
+- `dailyvinkel.com` is added to Vercel but still needs IONOS DNS set to
+  `A dailyvinkel.com 76.76.21.21`
+- repo commits:
+  - `48d83af Add DailyVinkel recovery mode`
+  - `4d42be5 Ignore Vercel project metadata`
+- Supabase backup is at `D:\daily vinkel\db_cluster-16-12-2025@07-23-31.backup\db_cluster-16-12-2025@07-23-31.backup`
+- target database is Neon free Postgres
+
+Work completed tonight:
+
+- inspected the Supabase backup as a plain PostgreSQL cluster dump
+- identified product tables: `articles`, `classified_listings`, `classified_submissions`, `jobs`, `sections`, `ad_placements`, `ad_sizes`, `classified_ad_sizes`
+- generated public-only Neon restore SQL at `D:\daily vinkel\neon\restore-public.sql`
+- added restore scripts:
+  - `D:\daily vinkel\scripts\extract-public-restore.ps1`
+  - `D:\daily vinkel\scripts\restore-to-neon.ps1`
+- installed WSL Ubuntu 24.04 and PostgreSQL client for restore operations
+- installed `neonctl` globally, but Neon CLI commands hung/timeout in this shell before auth/project creation completed
+- verified `Arigitshub/collive-reimagined` is already private
+- verified GitHub Pages is not enabled for `collive-reimagined`
+- pushed commit `7537555` to `collive-reimagined`: removed tracked `.env`, added `.env.example`, added proprietary `LICENSE`, and updated README
+
+Security note:
+
+- because `collive-reimagined` previously tracked `.env`, rotate old Stripe, Supabase, and Clerk secrets in their dashboards before relying on that deployment for production traffic
+
+Next DailyVinkel steps:
+
+1. Create or authenticate a Neon project/database for DailyVinkel.
+2. Set `NEON_DATABASE_URL` locally.
+3. Run `D:\daily vinkel\scripts\restore-to-neon.ps1`.
+4. Verify `select count(*) from public.articles;` and `select count(*) from public.classified_listings;`.
+5. Wire `collive-reimagined` or a simplified rebuild to Neon.
+6. Keep `dailyvinkel.com` live with at least a recovery page if the full rebuild takes longer than one session.
+
 ## Operator access
 
 Current operator leads endpoint:
@@ -238,9 +312,10 @@ curl -H "Authorization: Bearer <ADMIN_READ_TOKEN>" \
 - `docs/INTAKE_BACKEND_SETUP.md`
 - `docs/BOARD_DECISION_TURSO_2026-04-12.md`
 - `docs/STATUS.md`
+- `D:\daily vinkel\CORPAI-HANDOFF.md`
 
 ## Immediate next actions
 
-1. Run the staged Google Apps Script once and complete the one-time Google authorization flow
-2. Rotate the broader Turso account token after deployment
-3. Replace the modeled PR review case study with actual customer proof once pilots land
+1. Continue DailyVinkel as the free CorpAI test company: create/auth Neon, restore public product tables, and connect the live site path.
+2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+3. Replace the modeled PR review case study with actual customer proof once pilots land.

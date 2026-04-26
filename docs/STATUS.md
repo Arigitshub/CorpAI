@@ -45,8 +45,19 @@ The product thesis is no longer "general AI org framework first." The current co
 - Production portal rebuilt and republished with the live intake endpoint
 - Protected lead-review endpoint added at `GET /leads` on the intake Worker
 - Cloudflare secret `ADMIN_READ_TOKEN` set and verified live
-- Google Sheet CRM handoff created at `https://docs.google.com/spreadsheets/d/1B7T_example_id/edit`
-- Google Apps Script CRM import flow staged with one-time manual authorization still required
+- Google Sheet CRM handoff created at `https://docs.google.com/spreadsheets/d/1w66Zh56WxHY7zkN5cqabdNJxWAVbQm8TydyGILM-7ig/edit`
+- Google Apps Script CRM import flow authorized and verified
+- Post-crash recovery completed on 2026-04-26: portal rebuilt with the live intake endpoint and republished to Surge
+- Turso Cloud CLI path set up through WSL Ubuntu 24.04 on 2026-04-26
+- Turso group `default` database-token keys rotated on 2026-04-26
+- Fresh database-scoped token for `corpai-intake` uploaded to Cloudflare Worker secret `TURSO_AUTH_TOKEN`
+- Local Turso CLI account auth token removed after rotation
+- DailyVinkel selected as the free CorpAI test company/revival project
+- DailyVinkel Supabase backup inspected and public product-table restore package created under `D:\daily vinkel`
+- `Arigitshub/collive-reimagined` verified private and live-site-linked; proprietary license and env-secret cleanup pushed in commit `7537555`
+- DailyVinkel recovery-mode app committed and pushed to `Arigitshub/collive-reimagined` in commit `48d83af`
+- DailyVinkel recovery app deployed to Vercel at `https://daily-vinkel-collive-reimagined.vercel.app/`
+- `dailyvinkel.com` added to Vercel, pending IONOS DNS update to `A dailyvinkel.com 76.76.21.21`
 - Internal founder-facing Android app scaffold created in `corpai-founder-mobile`
 - Local founder bridge scaffold created in `corpai-founder-bridge` for Codex-backed missions from mobile
 - Founder bridge fixed to pass mission prompts to `codex exec -` over stdin on Windows
@@ -86,6 +97,10 @@ The product thesis is no longer "general AI org framework first." The current co
 - `docs/CRM_BROWSER_AGENT_PROMPT.md`
 - `docs/CRM_APPS_SCRIPT.gs`
 - `docs/VERCEL_BROWSER_AGENT_PROMPT.md`
+- `D:\daily vinkel\CORPAI-HANDOFF.md`
+- `D:\daily vinkel\neon\restore-public.sql`
+- `D:\daily-vinkel-collive-reimagined\LICENSE`
+- `D:\daily-vinkel-collive-reimagined\src\lib\recoveryData.ts`
 
 ## Stripe links
 
@@ -100,10 +115,10 @@ The product thesis is no longer "general AI org framework first." The current co
 - the portal now includes modeled ROI and modeled case-study proof, but there is still no real customer proof yet
 - the portal now has a dedicated buyer-facing case-study asset for the wedge, but it is still modeled proof rather than real customer proof
 - the portal still contains some legacy Supabase scaffolding files that are no longer the preferred direction
-- Google Apps Script authorization must still be completed in the browser
-- Turso database token rotation still requires Turso account access
-- 2026-04-26: Google CRM completion was attempted from Codex, but the stored sheet URL is a placeholder and no Google Apps Script CLI auth is present locally
-- 2026-04-26: Turso token rotation was attempted from Codex, but no Turso CLI/API auth is present locally; the available npm `turso` package is the SQLite shell, not the Turso Cloud CLI
+- DailyVinkel Neon project/database still needs to be created or authenticated
+- DailyVinkel public product tables still need to be restored to Neon
+- DailyVinkel real domain still needs DNS changed at IONOS before it points to Vercel
+- old `collive-reimagined` Stripe/Supabase/Clerk keys should be rotated because `.env` existed in git history before the cleanup commit
 
 ## Validation
 
@@ -119,9 +134,34 @@ The product thesis is no longer "general AI org framework first." The current co
 - founder bridge mock mission flow verified again on local port `8793`
 - 2026-04-26: real founder bridge mission completed through `POST /missions` and `GET /missions/:id` on port `8790`
 - 2026-04-26: `wrangler secret list` confirms `ADMIN_READ_TOKEN` and `TURSO_AUTH_TOKEN` are configured on the Worker
+- 2026-04-26: Google Apps Script `syncCorpAILeads` completed and populated the `CorpAI Leads` sheet
+- 2026-04-26 post-crash check: `npm run lint` passes in `corpai-portal`
+- 2026-04-26 post-crash check: `npm run build` passes in `corpai-portal` with `NEXT_PUBLIC_INTAKE_ENDPOINT=https://corpai-intake-service.arimail-57e.workers.dev/intake`
+- 2026-04-26 post-crash check: `npm run typecheck` passes in `corpai-founder-mobile`
+- 2026-04-26 post-crash check: production portal smoke checks returned `200` for `/`, `/pricing/`, `/buy/`, `/demo/`, `/demo/pr-review/`, `/case-study/pr-review/`, `/roi/`, `/intake/`, and `/success/`
+- 2026-04-26 post-crash check: live Worker `GET /health` returned `200 {"ok":true}`
+- 2026-04-26 post-crash check: live Worker `POST /intake` accepted a clearly labeled smoke-test submission
+- 2026-04-26 post-crash check: `surge out corpai-standard-vos.surge.sh` published successfully
+- 2026-04-26 post-crash check: local `npm run db:init` was not rerun because no local `.env.local` with `TURSO_DATABASE_URL` and `TURSO_AUTH_TOKEN` is present; deployed Worker secrets remain configured
+- 2026-04-26 token-rotation check: WSL Ubuntu 24.04 installed and Turso CLI `v1.0.20` verified
+- 2026-04-26 token-rotation check: `turso group tokens invalidate default --yes` completed successfully
+- 2026-04-26 token-rotation check: fresh `corpai-intake` database token piped directly into `npx wrangler secret put TURSO_AUTH_TOKEN`
+- 2026-04-26 token-rotation check: live Worker `GET /health` returned `200 {"ok":true}` after rotation
+- 2026-04-26 token-rotation check: live Worker `POST /intake` accepted a clearly labeled token-rotation smoke-test submission
+- 2026-04-26 token-rotation check: production `/intake/` returned `200 OK`
+- 2026-04-26 token-rotation check: local Turso CLI `auth logout` completed and config token value is empty
+- 2026-04-26 DailyVinkel check: Supabase backup is a plain PostgreSQL cluster dump
+- 2026-04-26 DailyVinkel check: public product-table counts from backup are 10 articles, 4 classified listings, 5 ad placements, 15 ad sizes, and 4 classified ad sizes
+- 2026-04-26 DailyVinkel check: public-only Neon restore SQL generated at `D:\daily vinkel\neon\restore-public.sql`
+- 2026-04-26 DailyVinkel check: WSL PostgreSQL client installed and `psql 16.13` verified
+- 2026-04-26 repo check: `Arigitshub/collive-reimagined` is private, GitHub Pages is not enabled, and license now reports as custom/Other proprietary license
+- 2026-04-26 DailyVinkel recovery check: `npm run build` passes locally
+- 2026-04-26 DailyVinkel recovery check: Vercel production deployment is `Ready`
+- 2026-04-26 DailyVinkel recovery check: `npm run lint` still fails on preexisting legacy lint issues across the old app and Supabase functions
 
 ## Next best moves
 
-1. Run the staged Google Apps Script once and complete the one-time Google authorization flow
-2. Rotate the broader Turso account token and keep only the database-scoped service token in deployment
-3. Replace the modeled PR review case study with real customer proof once the first pilots land
+1. Point `dailyvinkel.com` DNS at Vercel by setting IONOS `A dailyvinkel.com 76.76.21.21`, then recheck Vercel certificate/domain status.
+2. Continue DailyVinkel database recovery: create/auth Neon by browser, paste the connection string into `NEON_DATABASE_URL`, restore public product tables, and verify counts.
+3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+4. Replace the modeled PR review case study with real customer proof once the first pilots land.
