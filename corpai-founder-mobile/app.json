@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "CorpAI Founder",
+    "slug": "corpai-founder-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "package": "com.corpai.founder"
+    }
+  }
+}

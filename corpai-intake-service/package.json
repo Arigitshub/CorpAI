@@ -1,0 +1,17 @@
+{
+  "name": "corpai-intake-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node --env-file=.env.local server.mjs",
+    "start": "node server.mjs",
+    "db:init": "node scripts/init-db.mjs"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.15.15"
+  },
+  "devDependencies": {
+    "wrangler": "^4.81.1"
+  }
+}

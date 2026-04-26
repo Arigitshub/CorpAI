@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "corpai-intake-service",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-04-12",
+  "vars": {
+    "TURSO_DATABASE_URL": "libsql://corpai-intake-ariofficial.aws-us-east-1.turso.io",
+    "ALLOWED_ORIGINS": "https://corpai-standard-vos.surge.sh,http://localhost:3000"
+  }
+}

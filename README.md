@@ -1,168 +1,185 @@
-# CorpAI v2.0 (The Soul Upgrade)
+﻿# CorpAI AgentOps
 
 ![CorpAI Hero](assets/hero.png)
 
-> The open standard for AI agent organizations — a corporate hierarchy for your AI workforce, now with **Operational Soul Protocols**.
+> The control plane for governed AI agent execution.
 
-[![CorpAI Compatible](https://img.shields.io/badge/CorpAI-Compatible-0a0a0a?style=flat-square)](BADGE.md)
-[![Website](https://img.shields.io/badge/VOS--Portal--Live-blue?style=flat-square)](https://corpai-standard-vos.surge.sh)
-[![Version](https://img.shields.io/badge/version-v2.0--SOUL-green?style=flat-square)](ROADMAP.md)
-
-### 🧬 What are "Soul Protocols"?
-Inspired by the industry-leading PaperclipAI standard, CorpAI v2.0 integrates **Prime Directives**, **Tool Mandates**, and **Forbidden States** directly into the corporate structural spec. This transforms agents from mere role-holders into **Autonomous Action Units**.
-
-- [**View v2.0 CEO Soul**](roles/executive/ceo.md)
-[![Roles](https://img.shields.io/badge/roles-46%2B-purple?style=flat-square)](roles/)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?style=flat-square)](CONTRIBUTING.md)
+[![Website](https://img.shields.io/badge/live-corpai--standard--vos-blue?style=flat-square)](https://corpai-standard-vos.surge.sh)
+[![Product](https://img.shields.io/badge/product-AgentOps-orange?style=flat-square)](docs/BOARD_DECISION_2026-04-12.md)
 [![corpai CLI](https://img.shields.io/badge/CLI-corpai-orange?style=flat-square)](https://github.com/Arigitshub/corpai-cli)
+[![License](https://img.shields.io/badge/license-BSL%201.1-red?style=flat-square)](LICENSE)
 
----
+## What CorpAI Is
 
-## Imagine you have an AI company.
+CorpAI is built to sit above `Codex CLI`, `Gemini CLI`, `Claude Code`, `OpenRouter`, and direct provider APIs.
 
-Not a chatbot. Not a single agent. A **full organization** — with a CEO that sets direction, a CTO that owns architecture, a CFO watching the budget, and dozens of specialized agents executing below them.
+The runtime vendors provide inference and execution.
+CorpAI provides:
 
-Who tells who what to do?
-How does a failure at L1 reach the OWNER?
-What does a cross-department request actually look like?
-When does a task become an escalation?
-What happens when two AI orgs need to work together?
+- policy
+- routing
+- approvals
+- workflow packs
+- audit logs
+- spend visibility
+- operator reporting
 
-**CorpAI answers all of that.**
+That is the business.
 
-It's not a framework. It's not a library. It's an **open standard** — written in markdown, designed to be implemented in any language, on any platform, with any LLM.
+## Category
 
----
+`CorpAI is the control plane for governed AI agent execution.`
 
-## The Hierarchy
+This means:
 
-```mermaid
-graph TD
-    OWNER["👤 OWNER — Human Principal"]
-    CEO["[L5] CEO"]
-    CFO["[L5] CFO"]
-    CTO["[L5] CTO"]
-    COO["[L5] COO"]
-    CMO["[L5] CMO"]
+- teams can standardize how agent workflows run across repos and tools
+- protected actions can be reviewed before they ship
+- provider routing and fallback can be centrally managed
+- managers can see spend, output quality, and workflow outcomes without tracing terminal sessions
 
-    OWNER --> CEO
-    CEO --> CFO & CTO & COO & CMO
+## Who It Is For
 
-    CFO --> Finance["Finance\nDirector → Analyst → Auditor → Tracker"]
-    CTO --> Engineering["Engineering\nDirector → Lead → Engineer → QA"]
-    CTO --> Security["Security\nDirector → Manager → Analyst → Monitor"]
-    CTO --> DataAI["Data/AI\nDirector → ML Lead → Scientist → Engineer"]
-    COO --> Operations["Operations\nDirector → PM → Analyst → Coordinator"]
-    COO --> HR["HR\nDirector → Manager → Specialist → Onboarding"]
-    COO --> CS["Customer Success\nDirector → Manager → Specialist → Support"]
-    CMO --> Marketing["Marketing\nDirector → Content → Writer → Growth"]
-    CEO --> Legal["Legal\nDirector → Compliance → Contract → Policy"]
-```
+The first wedge is narrow on purpose:
 
-> Full department charts → [spec/diagrams/org-chart.md](spec/diagrams/org-chart.md)
+- technical teams already using coding agents
+- engineering orgs that need governance, not another model endpoint
+- buyers who care about speed, risk control, and measurable ROI
 
----
+CorpAI should not be positioned as:
+
+- a generic AI dashboard
+- a model vendor
+- a vague AI transformation platform
+- a broad wrapper for every business workflow
+
+## Live Sales Surface
+
+Production site:
+
+- [corpai-standard-vos.surge.sh](https://corpai-standard-vos.surge.sh)
+
+Current routes:
+
+- `/`
+- `/buy`
+- `/pricing`
+- `/demo`
+- `/demo/pr-review`
+- `/roi`
+- `/intake`
+- `/success`
+- `/map`
+
+## Current Offer Ladder
+
+- `AgentOps Audit`
+- `Managed Pilot`
+- `Hosted Control Plane`
+
+The current go-to-market motion is:
+
+1. sell audits
+2. convert audits into pilots
+3. convert successful pilots into recurring control-plane subscriptions
+
+## Product Direction
+
+The board decision is the source of truth:
+
+- [docs/BOARD_DECISION_2026-04-12.md](docs/BOARD_DECISION_2026-04-12.md)
+- [docs/STATUS.md](docs/STATUS.md)
+- [docs/HANDOFF.md](docs/HANDOFF.md)
+
+Most important supporting docs:
+
+- [docs/CATEGORY_BRIEF.md](docs/CATEGORY_BRIEF.md)
+- [docs/ICP.md](docs/ICP.md)
+- [docs/OFFER_ARCHITECTURE.md](docs/OFFER_ARCHITECTURE.md)
+- [docs/PRICING_POLICY.md](docs/PRICING_POLICY.md)
+- [docs/SALES_NARRATIVE.md](docs/SALES_NARRATIVE.md)
+- [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
+- [docs/RUNTIME_CONTRACT.md](docs/RUNTIME_CONTRACT.md)
+- [docs/PROVIDER_ROUTING_POLICY.md](docs/PROVIDER_ROUTING_POLICY.md)
+- [docs/APPROVAL_ENGINE_SPEC.md](docs/APPROVAL_ENGINE_SPEC.md)
+- [docs/ROI_MODEL.md](docs/ROI_MODEL.md)
+- [docs/METRICS_DEFINITION.md](docs/METRICS_DEFINITION.md)
+- [docs/WORKFLOW_PACK_SPEC.md](docs/WORKFLOW_PACK_SPEC.md)
+
+## Repo Structure
+
+Key areas:
+
+- `corpai-portal` buyer-facing portal and live marketing surface
+- `corpai-intake-service` tiny Turso-backed intake write service
+- `corpai-founder-mobile` internal Android-first founder cockpit prototype
+- `corpai-founder-bridge` local bridge that lets the founder app drive Codex CLI on this machine
+- `corpai-cli` CLI tooling
+- `corpai-platform` platform work
+- `docs` strategy, product, GTM, and handoff docs
+- `roles`, `spec`, and templates legacy spec assets that still inform the product
+
+Workspace layout notes:
+
+- [docs/WORKSPACE_LAYOUT.md](docs/WORKSPACE_LAYOUT.md)
+
+## Legacy Spec
+
+The original CorpAI spec work still exists in this repo and remains useful as source material for governance, role structure, and operating concepts.
+
+Legacy sections include:
+
+- `roles/`
+- `spec/`
+- `templates/`
+- `examples/`
+
+Those assets are no longer the front-door product story. They are supporting infrastructure and reference material behind the `AgentOps` business direction.
 
 ## Quick Start
 
+Portal:
+
 ```bash
-# Install the CLI
-pip install corpai
-
-# Validate any CorpAI org
-git clone https://github.com/Arigitshub/CorpAI
-cd CorpAI
-
-corpai lint                                              # validate all roles
-corpai graph                                             # ASCII org tree
-corpai simulate --from CEO --to "QA Tester" --priority P2   # trace a message
-corpai info                                              # org summary
+cd corpai-portal
+npm install
+npm run dev
 ```
 
----
+Validation:
 
-## What's Inside
+```bash
+cd corpai-portal
+npm run lint
+npm run build
+```
 
-### Core Spec
-| File | What it defines |
-|---|---|
-| [CODEX.md](CODEX.md) | The founding philosophy |
-| [spec/ranks.md](spec/ranks.md) | L1–L5 rank system with custom tier support |
-| [spec/communication.md](spec/communication.md) | Message types, format, priority levels |
-| [spec/escalation.md](spec/escalation.md) | Escalation triggers and OWNER notifications |
-| [spec/lifecycle.md](spec/lifecycle.md) | Agent lifecycle: Proposed → Active → Decommissioned |
-| [spec/cross-department.md](spec/cross-department.md) | How departments interact and coordinate |
-| [spec/multi-org.md](spec/multi-org.md) | Federation protocol for inter-org communication |
-| [spec/message-examples.md](spec/message-examples.md) | Real message examples for every type |
-| [spec/glossary.md](spec/glossary.md) | Every term, defined |
-| [spec/faq.md](spec/faq.md) | Common questions answered |
-
-### Roles (46 defined)
-| Department | Roles |
-|---|---|
-| [Executive](roles/executive/) | OWNER, CEO, CFO, CTO, COO, CMO |
-| [Engineering](roles/engineering/) | Director, Team Lead, Senior Engineer, Engineer, QA Lead, QA Tester |
-| [Finance](roles/finance/) | Director, Financial Analyst, Auditor, Budget Tracker |
-| [Marketing](roles/marketing/) | Director, Content Lead, Growth Specialist, Brand Strategist, Content Writer |
-| [Operations](roles/operations/) | Director, Project Manager, Process Analyst, Coordinator |
-| [Legal](roles/legal/) | Director, Compliance Specialist, Contract Reviewer, Policy Checker |
-| [HR](roles/hr/) | Director, HR Manager, Talent Specialist, Onboarding Agent |
-| [Security](roles/security/) | Director, Security Manager, Threat Analyst, Monitor Agent |
-| [Data/AI](roles/data-ai/) | Director, ML Lead, Data Scientist, Data Engineer, Data Processor |
-| [Customer Success](roles/customer-success/) | Director, CS Manager, Account Specialist, Support Agent |
-
-### Templates & Resources
-| File | What it's for |
-|---|---|
-| [templates/role-template.md](templates/role-template.md) | Create a new role |
-| [templates/config-example.md](templates/config-example.md) | Configure your org |
-| [examples/real-world-mapping.md](examples/real-world-mapping.md) | Map real jobs to CorpAI roles |
-| [CERTIFIED.md](CERTIFIED.md) | CorpAI Certified program |
-| [CHANGELOG.md](CHANGELOG.md) | Version history |
-
----
-
-## CorpAI CLI
-
-The official validator and tooling for this spec:
+CLI:
 
 ```bash
 pip install corpai
 ```
 
-| Command | What it does |
-|---|---|
-| `corpai lint` | Validates all role files — 11 checks + cross-role chain verification |
-| `corpai graph` | ASCII tree or Mermaid org chart, filter by dept |
-| `corpai simulate` | Traces every hop a TASK or ESCALATION makes |
-| `corpai info` | Org summary — roles, departments, rank distribution |
+## Stripe
 
-→ [Arigitshub/corpai-cli](https://github.com/Arigitshub/corpai-cli)
+Stripe payment links are already wired into the portal.
 
----
+If you need to update Stripe-side redirects to the site success flow, use:
 
-## CorpAI Compatible
+- [docs/STRIPE_BROWSER_AGENT_PROMPT.md](docs/STRIPE_BROWSER_AGENT_PROMPT.md)
+- [docs/STRIPE_SUCCESS_REDIRECT_PROMPT.md](docs/STRIPE_SUCCESS_REDIRECT_PROMPT.md)
 
-Implementing this spec? Add the badge to your repo → [BADGE.md](BADGE.md)
+## License
 
-Want CorpAI Certified status? → [CERTIFIED.md](CERTIFIED.md)
+This repository now uses the `Business Source License 1.1`.
 
----
+The intent is:
 
-## Roadmap
-
-- [x] v0.1 — Executive layer + core spec
-- [x] v0.2 — All 9 departments (46 roles)
-- [x] v0.3 — Agent lifecycle + cross-department flows
-- [x] v0.4 — CLI validator tooling (`pip install corpai`)
-- [x] v1.0 — Multi-org spec, glossary, FAQ, message examples, issue templates, certified program, changelog
-
-Full roadmap → [ROADMAP.md](ROADMAP.md)
-
----
+- source available for evaluation, internal development, and testing
+- protected against unlicensed production or hosted commercial use
+- converts to `Apache-2.0` on the stated change date
 
 ## Community
 
-- [GitHub Discussions](../../discussions) — questions, proposals, ideas
-- [CONTRIBUTING.md](CONTRIBUTING.md) — add roles, departments, spec improvements
-- [Issue Templates](.github/ISSUE_TEMPLATE/) — role submissions, spec proposals, bug reports, certifications
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [BADGE.md](BADGE.md)
+- [CERTIFIED.md](CERTIFIED.md)

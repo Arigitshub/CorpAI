@@ -1,57 +1,75 @@
-# CorpAI Roadmap
+﻿# CorpAI Roadmap
 
----
+## Current Phase
 
-## v0.1 — Foundation ✅
-- [x] CODEX.md, rank system, communication + escalation protocol
-- [x] Executive layer (OWNER, CEO, CFO, CTO, COO, CMO)
-- [x] Role template, config example, real-world mapping, contributing guide
-- [x] GitHub Pages, discussions, MIT license
+CorpAI is in the `AgentOps` phase.
 
-## v0.2 — All Departments ✅
-- [x] 9 departments, 46 roles total
-- [x] Full org charts with Mermaid diagrams
+The goal is not to broaden the product surface. The goal is to win one wedge hard:
 
-## v0.3 — Advanced Spec ✅
-- [x] Agent lifecycle state machine
-- [x] Cross-department interaction spec + flow diagrams
+- technical teams already using coding agents
+- one strong workflow proof
+- audits -> pilots -> recurring control-plane revenue
 
-## v0.4 — Validator & Tooling ✅
-- [x] `corpai lint` — validates role files against spec
-- [x] `corpai graph` — ASCII tree + Mermaid org charts
-- [x] `corpai simulate` — traces message hops through hierarchy
-- [x] `corpai info` — org summary
-- [x] PyPI-ready with CI auto-publish
+## Phase 1: Sales Surface and Funnel
 
-## v1.0 — Stable Standard ✅
-- [x] `spec/multi-org.md` — federation protocol for inter-org communication
-- [x] `spec/glossary.md` — every term defined
-- [x] `spec/faq.md` — common questions answered
-- [x] `spec/message-examples.md` — real examples of every message type
-- [x] `CERTIFIED.md` — CorpAI Certified program
-- [x] `CHANGELOG.md` — full version history
-- [x] Issue templates (role submission, spec proposal, bug report, certification)
+Completed:
 
----
+- [x] reposition portal around `CorpAI AgentOps`
+- [x] launch homepage, pricing, buy page, demo page, intake page, success page, and ROI page
+- [x] deploy live portal to `https://corpai-standard-vos.surge.sh`
+- [x] wire live Stripe payment links into the portal
+- [x] create multi-scenario workflow simulation
+- [x] create dedicated `PR Review AgentOps` proof page
+- [x] create modeled ROI calculator for the PR review wedge
 
-## v1.1 — Community Growth (next)
+Remaining:
 
-- [ ] First community-contributed roles (via PRs)
-- [ ] First CorpAI Certified role
-- [ ] First CorpAI Certified implementation in the registry
-- [ ] Reference implementations directory (`implementations/`)
-- [ ] `corpai init` CLI command — scaffold a new CorpAI org from scratch
-- [ ] i18n support (`i18n/` folder with translated role definitions)
+- [ ] configure Stripe payment links to return to `/success`
+- [ ] tighten post-checkout conversion and intake flow
 
-## v2.0 — Ecosystem
+## Phase 2: Proof and Commercial Validation
 
-- [ ] CorpAI Registry — public index of compatible projects
-- [ ] `corpai validate --remote` — validate against hosted spec version
-- [ ] Visual org builder (web tool)
-- [ ] AI-assisted role generator (`corpai new-role --describe "manages compliance"`)
+Priority:
 
----
+- [ ] close 3 paid `AgentOps Audit` engagements
+- [ ] convert the best audit buyers into `Managed Pilot` customers
+- [ ] replace modeled proof with real pilot proof
+- [ ] publish one quantified case study
+- [ ] publish one customer-backed ROI story
 
-## Community Ideas
+## Phase 3: Product Moat
 
-Have an idea? Open a [GitHub Discussion](../../discussions).
+Priority:
+
+- [ ] build provider-agnostic runtime layer
+- [ ] standardize runtime contract across Codex CLI, Gemini CLI, Claude Code, OpenRouter, and direct APIs
+- [ ] add routing and fallback engine
+- [ ] add first-class approval engine
+- [ ] persist audit logs, usage, and artifacts
+- [ ] connect billing and entitlement logic to product access
+
+## Phase 4: Workflow Expansion
+
+Only after the wedge converts:
+
+- [ ] expand `PR Review AgentOps` into repeatable workflow packs
+- [ ] add bugfix workflow pack
+- [ ] add migration workflow pack
+- [ ] add incident-triage workflow pack
+
+## Phase 5: Control Plane Productization
+
+- [ ] convert managed service learnings into a repeatable hosted control-plane product
+- [ ] support recurring subscriptions with stronger activation and onboarding flows
+- [ ] support enterprise BYOK on top of the control plane
+
+## Source Documents
+
+The roadmap should be interpreted through these docs:
+
+- `docs/BOARD_DECISION_2026-04-12.md`
+- `docs/STATUS.md`
+- `docs/HANDOFF.md`
+- `docs/CATEGORY_BRIEF.md`
+- `docs/OFFER_ARCHITECTURE.md`
+- `docs/RUNTIME_CONTRACT.md`

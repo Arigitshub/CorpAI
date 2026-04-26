@@ -1,0 +1,10 @@
+{
+  "name": "corpai-founder-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node --env-file=.env.local server.mjs"
+  }
+}
