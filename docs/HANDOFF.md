@@ -254,6 +254,7 @@ Current facts:
   - `48d83af Add DailyVinkel recovery mode`
   - `4d42be5 Ignore Vercel project metadata`
   - `ea99876 Improve DailyVinkel SEO metadata`
+  - `032a519 Read DailyVinkel public data from Neon`
 - Supabase backup is at `D:\daily vinkel\db_cluster-16-12-2025@07-23-31.backup\db_cluster-16-12-2025@07-23-31.backup`
 - target database is Neon free Postgres
 
@@ -283,6 +284,11 @@ Work completed tonight:
   - corrected `www` at IONOS to `cname.vercel-dns.com`
   - `www.dailyvinkel.com` was attached to the current Vercel deployment and Vercel issued a certificate
   - both `https://dailyvinkel.com/` and `https://www.dailyvinkel.com/` returned HTTP 200
+- wired public reads to Neon with a Vercel serverless API:
+  - `api/dailyvinkel.js` reads public articles, classifieds, and sections server-side
+  - `DATABASE_URL` is set in Vercel production as a sensitive environment variable
+  - browser services try the API first and keep static recovered data as fallback
+  - production API checks returned 10 articles and 4 active listings from Neon
 
 Security note:
 
@@ -290,8 +296,8 @@ Security note:
 
 Next DailyVinkel steps:
 
-1. Wire `collive-reimagined` to Neon through server-side API/Vercel functions, keeping recovery mode as fallback.
-2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+1. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+2. Polish DailyVinkel v1 content/routes now that apex, `www`, and Neon-backed public reads are live.
 3. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.
 
 ## Operator access
@@ -335,6 +341,6 @@ curl -H "Authorization: Bearer <ADMIN_READ_TOKEN>" \
 
 ## Immediate next actions
 
-1. Continue DailyVinkel as the free CorpAI test company: wire the app to Neon-backed server-side reads.
+1. Continue DailyVinkel as the free CorpAI test company: polish the live v1 and rotate old exposed Stripe/Supabase/Clerk secrets.
 2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 3. Replace the modeled PR review case study with actual customer proof once pilots land.

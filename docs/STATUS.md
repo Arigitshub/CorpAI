@@ -61,6 +61,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - DailyVinkel Neon database created with `npx get-db`, public product tables restored, and row counts verified
 - DailyVinkel Neon database claimed under `ari532477@gmail.com` on 2026-04-26
 - DailyVinkel SEO metadata improved and deployed in commit `ea99876`
+- DailyVinkel public article/classified reads wired to Neon through a Vercel serverless API and deployed in commit `032a519`
 - Internal founder-facing Android app scaffold created in `corpai-founder-mobile`
 - Local founder bridge scaffold created in `corpai-founder-bridge` for Codex-backed missions from mobile
 - Founder bridge fixed to pass mission prompts to `codex exec -` over stdin on Windows
@@ -104,6 +105,8 @@ The product thesis is no longer "general AI org framework first." The current co
 - `D:\daily vinkel\neon\restore-public.sql`
 - `D:\daily-vinkel-collive-reimagined\LICENSE`
 - `D:\daily-vinkel-collive-reimagined\src\lib\recoveryData.ts`
+- `D:\daily-vinkel-collive-reimagined\api\dailyvinkel.js`
+- `D:\daily-vinkel-collive-reimagined\src\lib\services\dailyVinkelApi.ts`
 - `D:\daily-vinkel-collive-reimagined\src\lib\seo\SEOHead.tsx`
 
 ## Stripe links
@@ -166,9 +169,11 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-27 DailyVinkel DNS check: IONOS support approval came through around 2:20 PM ET; Donald confirmed `dailyvinkel.com A 76.76.21.21`, `www CNAME cname.vercel-dns.com`, old conflicting apex records removed, and 1-2 day propagation expected
 - 2026-04-27 follow-up DNS check: `dailyvinkel.com A` resolves to `76.76.21.21`; Vercel alias/certificate was created for `dailyvinkel.com`; `www.dailyvinkel.com` currently resolves to typo target `cname.versel-dns.com` and must be corrected to `cname.vercel-dns.com`
 - 2026-04-27 final DNS/domain check: corrected `www.dailyvinkel.com` in IONOS to `cname.vercel-dns.com`; Vercel certificate/alias succeeded for `www`; both `https://dailyvinkel.com/` and `https://www.dailyvinkel.com/` returned HTTP 200
+- 2026-04-27 DailyVinkel Neon-read check: production API returned 10 articles and 4 active listings from Neon; article slug and listing-id spot checks returned expected recovered records
+- 2026-04-27 DailyVinkel build check: `npm run build` passes after adding the Neon serverless API; the usual chunk-size and Browserslist warnings remain
 
 ## Next best moves
 
-1. Wire the DailyVinkel app to the restored Neon data through a server-side API or Vercel functions; keep recovery mode as fallback.
-2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+1. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+2. Polish DailyVinkel v1 content/routes now that apex, `www`, and Neon-backed public reads are live.
 3. Replace the modeled PR review case study with real customer proof once the first pilots land.
