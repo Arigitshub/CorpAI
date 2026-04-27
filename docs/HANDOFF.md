@@ -276,6 +276,11 @@ Work completed tonight:
 - pushed commit `ea99876` to improve SEO metadata on homepage, news, classifieds, category, and listing-detail pages
 - completed the IONOS unlock/DNS support call on 2026-04-27 around 2:20 PM ET;
   Vercel DNS records were entered/confirmed and now need propagation verification
+- checked DNS after the call:
+  - `dailyvinkel.com A` resolves to `76.76.21.21`
+  - `dailyvinkel.com` was attached to the current Vercel deployment and Vercel issued a certificate
+  - `www.dailyvinkel.com` resolves to `cname.versel-dns.com`, which is misspelled
+  - correct `www` at IONOS to `cname.vercel-dns.com`, then rerun Vercel alias/certificate verification
 
 Security note:
 
@@ -283,7 +288,7 @@ Security note:
 
 Next DailyVinkel steps:
 
-1. Recheck `dailyvinkel.com` and `www.dailyvinkel.com` DNS propagation and Vercel certificate/domain status.
+1. Correct `www.dailyvinkel.com` at IONOS from `cname.versel-dns.com` to `cname.vercel-dns.com`, then attach/verify the `www` Vercel alias.
 2. Wire `collive-reimagined` to Neon through server-side API/Vercel functions, keeping recovery mode as fallback.
 3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 4. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.

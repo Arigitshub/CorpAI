@@ -164,10 +164,11 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-26 DailyVinkel Neon check: claim completed under `ari532477@gmail.com`
 - 2026-04-26 DailyVinkel SEO check: commit `ea99876` deployed to Vercel production and aliased to `https://daily-vinkel-collive-reimagined.vercel.app/`
 - 2026-04-27 DailyVinkel DNS check: IONOS support approval came through around 2:20 PM ET; Donald confirmed `dailyvinkel.com A 76.76.21.21`, `www CNAME cname.vercel-dns.com`, old conflicting apex records removed, and 1-2 day propagation expected
+- 2026-04-27 follow-up DNS check: `dailyvinkel.com A` resolves to `76.76.21.21`; Vercel alias/certificate was created for `dailyvinkel.com`; `www.dailyvinkel.com` currently resolves to typo target `cname.versel-dns.com` and must be corrected to `cname.vercel-dns.com`
 
 ## Next best moves
 
-1. Recheck `dailyvinkel.com` and `www.dailyvinkel.com` DNS propagation and Vercel certificate/domain status.
+1. Correct `www.dailyvinkel.com` at IONOS from `cname.versel-dns.com` to `cname.vercel-dns.com`, then attach/verify the `www` Vercel alias.
 2. Wire the DailyVinkel app to the restored Neon data through a server-side API or Vercel functions; keep recovery mode as fallback.
 3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 4. Replace the modeled PR review case study with real customer proof once the first pilots land.
