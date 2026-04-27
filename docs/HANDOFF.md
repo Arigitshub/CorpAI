@@ -243,8 +243,8 @@ Current facts:
 - `dailyvinkel.com` is added to Vercel but still needs IONOS DNS set to
   `A dailyvinkel.com 76.76.21.21`
 - Neon database created with `npx get-db`; public product tables restored and verified.
-  Claim the database into the Neon account before 2026-04-29. Connection strings
-  are stored only in `D:\daily vinkel\.env`.
+  The database was claimed under `ari532477@gmail.com` on 2026-04-26.
+  Connection strings are stored only in `D:\daily vinkel\.env`.
 - repo commits:
   - `48d83af Add DailyVinkel recovery mode`
   - `4d42be5 Ignore Vercel project metadata`

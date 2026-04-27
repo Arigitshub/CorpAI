@@ -59,6 +59,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - DailyVinkel recovery app deployed to Vercel at `https://daily-vinkel-collive-reimagined.vercel.app/`
 - `dailyvinkel.com` added to Vercel, pending IONOS DNS update to `A dailyvinkel.com 76.76.21.21`
 - DailyVinkel Neon database created with `npx get-db`, public product tables restored, and row counts verified
+- DailyVinkel Neon database claimed under `ari532477@gmail.com` on 2026-04-26
 - Internal founder-facing Android app scaffold created in `corpai-founder-mobile`
 - Local founder bridge scaffold created in `corpai-founder-bridge` for Codex-backed missions from mobile
 - Founder bridge fixed to pass mission prompts to `codex exec -` over stdin on Windows
@@ -116,7 +117,6 @@ The product thesis is no longer "general AI org framework first." The current co
 - the portal now includes modeled ROI and modeled case-study proof, but there is still no real customer proof yet
 - the portal now has a dedicated buyer-facing case-study asset for the wedge, but it is still modeled proof rather than real customer proof
 - the portal still contains some legacy Supabase scaffolding files that are no longer the preferred direction
-- DailyVinkel Neon database needs to be claimed into the Neon account before the claimable DB expiry on 2026-04-29
 - DailyVinkel real domain still needs DNS changed at IONOS before it points to Vercel
 - old `collive-reimagined` Stripe/Supabase/Clerk keys should be rotated because `.env` existed in git history before the cleanup commit
 
@@ -159,10 +159,11 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-26 DailyVinkel recovery check: Vercel production deployment is `Ready`
 - 2026-04-26 DailyVinkel recovery check: `npm run lint` still fails on preexisting legacy lint issues across the old app and Supabase functions
 - 2026-04-26 DailyVinkel Neon check: restore completed with 10 articles, 4 classified listings, 5 ad placements, 15 ad sizes, 4 classified ad sizes, and empty submissions/jobs/sections
+- 2026-04-26 DailyVinkel Neon check: claim completed under `ari532477@gmail.com`
 
 ## Next best moves
 
 1. Point `dailyvinkel.com` DNS at Vercel by setting IONOS `A dailyvinkel.com 76.76.21.21`, then recheck Vercel certificate/domain status.
-2. Claim the `npx get-db` Neon database into the Neon account before 2026-04-29; connection strings are local-only in `D:\daily vinkel\.env`.
+2. Wire the DailyVinkel app to the restored Neon data through a server-side API or Vercel functions; keep recovery mode as fallback.
 3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 4. Replace the modeled PR review case study with real customer proof once the first pilots land.
