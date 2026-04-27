@@ -119,7 +119,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - the portal now includes modeled ROI and modeled case-study proof, but there is still no real customer proof yet
 - the portal now has a dedicated buyer-facing case-study asset for the wedge, but it is still modeled proof rather than real customer proof
 - the portal still contains some legacy Supabase scaffolding files that are no longer the preferred direction
-- DailyVinkel real domain DNS change has been entered at IONOS and needs propagation/certificate verification
+- DailyVinkel real domain DNS and Vercel custom-domain setup are live for apex and `www`
 - old `collive-reimagined` Stripe/Supabase/Clerk keys should be rotated because `.env` existed in git history before the cleanup commit
 
 ## Validation
@@ -165,10 +165,10 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-26 DailyVinkel SEO check: commit `ea99876` deployed to Vercel production and aliased to `https://daily-vinkel-collive-reimagined.vercel.app/`
 - 2026-04-27 DailyVinkel DNS check: IONOS support approval came through around 2:20 PM ET; Donald confirmed `dailyvinkel.com A 76.76.21.21`, `www CNAME cname.vercel-dns.com`, old conflicting apex records removed, and 1-2 day propagation expected
 - 2026-04-27 follow-up DNS check: `dailyvinkel.com A` resolves to `76.76.21.21`; Vercel alias/certificate was created for `dailyvinkel.com`; `www.dailyvinkel.com` currently resolves to typo target `cname.versel-dns.com` and must be corrected to `cname.vercel-dns.com`
+- 2026-04-27 final DNS/domain check: corrected `www.dailyvinkel.com` in IONOS to `cname.vercel-dns.com`; Vercel certificate/alias succeeded for `www`; both `https://dailyvinkel.com/` and `https://www.dailyvinkel.com/` returned HTTP 200
 
 ## Next best moves
 
-1. Correct `www.dailyvinkel.com` at IONOS from `cname.versel-dns.com` to `cname.vercel-dns.com`, then attach/verify the `www` Vercel alias.
-2. Wire the DailyVinkel app to the restored Neon data through a server-side API or Vercel functions; keep recovery mode as fallback.
-3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
-4. Replace the modeled PR review case study with real customer proof once the first pilots land.
+1. Wire the DailyVinkel app to the restored Neon data through a server-side API or Vercel functions; keep recovery mode as fallback.
+2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+3. Replace the modeled PR review case study with real customer proof once the first pilots land.

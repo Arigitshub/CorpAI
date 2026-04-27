@@ -279,8 +279,10 @@ Work completed tonight:
 - checked DNS after the call:
   - `dailyvinkel.com A` resolves to `76.76.21.21`
   - `dailyvinkel.com` was attached to the current Vercel deployment and Vercel issued a certificate
-  - `www.dailyvinkel.com` resolves to `cname.versel-dns.com`, which is misspelled
-  - correct `www` at IONOS to `cname.vercel-dns.com`, then rerun Vercel alias/certificate verification
+  - `www.dailyvinkel.com` initially resolved to `cname.versel-dns.com`, which was misspelled
+  - corrected `www` at IONOS to `cname.vercel-dns.com`
+  - `www.dailyvinkel.com` was attached to the current Vercel deployment and Vercel issued a certificate
+  - both `https://dailyvinkel.com/` and `https://www.dailyvinkel.com/` returned HTTP 200
 
 Security note:
 
@@ -288,10 +290,9 @@ Security note:
 
 Next DailyVinkel steps:
 
-1. Correct `www.dailyvinkel.com` at IONOS from `cname.versel-dns.com` to `cname.vercel-dns.com`, then attach/verify the `www` Vercel alias.
-2. Wire `collive-reimagined` to Neon through server-side API/Vercel functions, keeping recovery mode as fallback.
-3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
-4. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.
+1. Wire `collive-reimagined` to Neon through server-side API/Vercel functions, keeping recovery mode as fallback.
+2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+3. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.
 
 ## Operator access
 
@@ -334,6 +335,6 @@ curl -H "Authorization: Bearer <ADMIN_READ_TOKEN>" \
 
 ## Immediate next actions
 
-1. Continue DailyVinkel as the free CorpAI test company: verify `dailyvinkel.com` DNS/Vercel certificate propagation, then wire the app to Neon-backed server-side reads.
+1. Continue DailyVinkel as the free CorpAI test company: wire the app to Neon-backed server-side reads.
 2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 3. Replace the modeled PR review case study with actual customer proof once pilots land.
