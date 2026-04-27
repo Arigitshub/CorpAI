@@ -243,8 +243,10 @@ Current facts:
 - `dailyvinkel.com` is added to Vercel.
 - 2026-04-27 2:20 PM America/New_York: IONOS support approval came through
   during Ari's call with Donald, and the Vercel DNS update was entered.
-  Propagation was quoted as 1-2 days. Confirm after propagation that the apex
-  A record resolves to `76.76.21.21`.
+  Donald confirmed `dailyvinkel.com A 76.76.21.21`,
+  `www.dailyvinkel.com CNAME cname.vercel-dns.com`, old conflicting apex `A`,
+  `AAAA`, and parking records removed, and 1-2 day propagation. A ticket/reference
+  number was provided during the call.
 - Neon database created with `npx get-db`; public product tables restored and verified.
   The database was claimed under `ari532477@gmail.com` on 2026-04-26.
   Connection strings are stored only in `D:\daily vinkel\.env`.
@@ -273,7 +275,7 @@ Work completed tonight:
 - deployed recovery-mode DailyVinkel to Vercel production
 - pushed commit `ea99876` to improve SEO metadata on homepage, news, classifieds, category, and listing-detail pages
 - completed the IONOS unlock/DNS support call on 2026-04-27 around 2:20 PM ET;
-  Vercel DNS change was entered and now needs propagation verification
+  Vercel DNS records were entered/confirmed and now need propagation verification
 
 Security note:
 
@@ -281,7 +283,7 @@ Security note:
 
 Next DailyVinkel steps:
 
-1. Recheck `dailyvinkel.com` DNS propagation and Vercel certificate/domain status; confirm the apex A record resolves to `76.76.21.21`.
+1. Recheck `dailyvinkel.com` and `www.dailyvinkel.com` DNS propagation and Vercel certificate/domain status.
 2. Wire `collive-reimagined` to Neon through server-side API/Vercel functions, keeping recovery mode as fallback.
 3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 4. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.

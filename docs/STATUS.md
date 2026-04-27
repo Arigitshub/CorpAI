@@ -57,7 +57,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - `Arigitshub/collive-reimagined` verified private and live-site-linked; proprietary license and env-secret cleanup pushed in commit `7537555`
 - DailyVinkel recovery-mode app committed and pushed to `Arigitshub/collive-reimagined` in commit `48d83af`
 - DailyVinkel recovery app deployed to Vercel at `https://daily-vinkel-collive-reimagined.vercel.app/`
-- `dailyvinkel.com` added to Vercel; IONOS support entered the Vercel DNS update on 2026-04-27 around 2:20 PM ET with 1-2 day propagation expected
+- `dailyvinkel.com` added to Vercel; IONOS support entered and confirmed the Vercel DNS records on 2026-04-27 around 2:20 PM ET with 1-2 day propagation expected
 - DailyVinkel Neon database created with `npx get-db`, public product tables restored, and row counts verified
 - DailyVinkel Neon database claimed under `ari532477@gmail.com` on 2026-04-26
 - DailyVinkel SEO metadata improved and deployed in commit `ea99876`
@@ -163,11 +163,11 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-26 DailyVinkel Neon check: restore completed with 10 articles, 4 classified listings, 5 ad placements, 15 ad sizes, 4 classified ad sizes, and empty submissions/jobs/sections
 - 2026-04-26 DailyVinkel Neon check: claim completed under `ari532477@gmail.com`
 - 2026-04-26 DailyVinkel SEO check: commit `ea99876` deployed to Vercel production and aliased to `https://daily-vinkel-collive-reimagined.vercel.app/`
-- 2026-04-27 DailyVinkel DNS check: IONOS support approval came through around 2:20 PM ET, the Vercel DNS update was entered, and propagation is expected to take 1-2 days
+- 2026-04-27 DailyVinkel DNS check: IONOS support approval came through around 2:20 PM ET; Donald confirmed `dailyvinkel.com A 76.76.21.21`, `www CNAME cname.vercel-dns.com`, old conflicting apex records removed, and 1-2 day propagation expected
 
 ## Next best moves
 
-1. Recheck `dailyvinkel.com` DNS propagation and Vercel certificate/domain status; confirm the apex A record resolves to `76.76.21.21`.
+1. Recheck `dailyvinkel.com` and `www.dailyvinkel.com` DNS propagation and Vercel certificate/domain status.
 2. Wire the DailyVinkel app to the restored Neon data through a server-side API or Vercel functions; keep recovery mode as fallback.
 3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 4. Replace the modeled PR review case study with real customer proof once the first pilots land.
