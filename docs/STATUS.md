@@ -60,6 +60,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - `dailyvinkel.com` added to Vercel, pending IONOS DNS update to `A dailyvinkel.com 76.76.21.21`
 - DailyVinkel Neon database created with `npx get-db`, public product tables restored, and row counts verified
 - DailyVinkel Neon database claimed under `ari532477@gmail.com` on 2026-04-26
+- DailyVinkel SEO metadata improved and deployed in commit `ea99876`
 - Internal founder-facing Android app scaffold created in `corpai-founder-mobile`
 - Local founder bridge scaffold created in `corpai-founder-bridge` for Codex-backed missions from mobile
 - Founder bridge fixed to pass mission prompts to `codex exec -` over stdin on Windows
@@ -103,6 +104,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - `D:\daily vinkel\neon\restore-public.sql`
 - `D:\daily-vinkel-collive-reimagined\LICENSE`
 - `D:\daily-vinkel-collive-reimagined\src\lib\recoveryData.ts`
+- `D:\daily-vinkel-collive-reimagined\src\lib\seo\SEOHead.tsx`
 
 ## Stripe links
 
@@ -160,6 +162,7 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-26 DailyVinkel recovery check: `npm run lint` still fails on preexisting legacy lint issues across the old app and Supabase functions
 - 2026-04-26 DailyVinkel Neon check: restore completed with 10 articles, 4 classified listings, 5 ad placements, 15 ad sizes, 4 classified ad sizes, and empty submissions/jobs/sections
 - 2026-04-26 DailyVinkel Neon check: claim completed under `ari532477@gmail.com`
+- 2026-04-26 DailyVinkel SEO check: commit `ea99876` deployed to Vercel production and aliased to `https://daily-vinkel-collive-reimagined.vercel.app/`
 
 ## Next best moves
 

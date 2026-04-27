@@ -248,6 +248,7 @@ Current facts:
 - repo commits:
   - `48d83af Add DailyVinkel recovery mode`
   - `4d42be5 Ignore Vercel project metadata`
+  - `ea99876 Improve DailyVinkel SEO metadata`
 - Supabase backup is at `D:\daily vinkel\db_cluster-16-12-2025@07-23-31.backup\db_cluster-16-12-2025@07-23-31.backup`
 - target database is Neon free Postgres
 
@@ -264,6 +265,10 @@ Work completed tonight:
 - verified `Arigitshub/collive-reimagined` is already private
 - verified GitHub Pages is not enabled for `collive-reimagined`
 - pushed commit `7537555` to `collive-reimagined`: removed tracked `.env`, added `.env.example`, added proprietary `LICENSE`, and updated README
+- created and claimed a Neon database under `ari532477@gmail.com`
+- restored and verified the recovered public product tables in Neon
+- deployed recovery-mode DailyVinkel to Vercel production
+- pushed commit `ea99876` to improve SEO metadata on homepage, news, classifieds, category, and listing-detail pages
 
 Security note:
 
@@ -271,12 +276,10 @@ Security note:
 
 Next DailyVinkel steps:
 
-1. Create or authenticate a Neon project/database for DailyVinkel.
-2. Set `NEON_DATABASE_URL` locally.
-3. Run `D:\daily vinkel\scripts\restore-to-neon.ps1`.
-4. Verify `select count(*) from public.articles;` and `select count(*) from public.classified_listings;`.
-5. Wire `collive-reimagined` or a simplified rebuild to Neon.
-6. Keep `dailyvinkel.com` live with at least a recovery page if the full rebuild takes longer than one session.
+1. Point `dailyvinkel.com` DNS at Vercel by setting IONOS `A dailyvinkel.com 76.76.21.21`, then recheck certificate/domain status.
+2. Wire `collive-reimagined` to Neon through server-side API/Vercel functions, keeping recovery mode as fallback.
+3. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
+4. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.
 
 ## Operator access
 
@@ -319,6 +322,6 @@ curl -H "Authorization: Bearer <ADMIN_READ_TOKEN>" \
 
 ## Immediate next actions
 
-1. Continue DailyVinkel as the free CorpAI test company: create/auth Neon, restore public product tables, and connect the live site path.
+1. Continue DailyVinkel as the free CorpAI test company: point `dailyvinkel.com` DNS to Vercel, then wire the app to Neon-backed server-side reads.
 2. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
 3. Replace the modeled PR review case study with actual customer proof once pilots land.
