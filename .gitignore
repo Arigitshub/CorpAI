@@ -24,6 +24,22 @@ yarn-error.log*
 data/
 *.final.txt
 
+# Local Agent Sandbox & Browser Profiles
+.agentfs/
+.browser-profile/
+*.png
+
+# Sub-repositories and standalone packages
+CorpAI/
+corpai-cli/
+corpai-platform/
+corpai-portal/
+paperclip-company-playbook/
+paperclip-playbook-source/
+paperclip-source/
+workspace-imports/
+
+
 # OS/editor noise
 .DS_Store
 Thumbs.db

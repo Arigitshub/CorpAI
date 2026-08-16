@@ -1,26 +1,45 @@
-# CorpAI Project Inventory
+# 📊 Nexus Project Inventory
+> **The Source of Truth for [COMPANY NAME]**
 
-> The source of truth for the entire CorpAI ecosystem.
+## 🏗️ Organizational Context
+- **Vision**: [Insert 1-sentence vision]
+- **North Star**: [What is the single most important metric?]
+- **Stack**: [e.g. Next.js, Python, OpenAI, Pinecone]
 
-## 🏢 Company Profile
-- **Name:** [COMPANY_NAME]
-- **Vision:** [VISION_STATEMENT]
-- **Domain:** [DOMAIN]
+---
 
-## 📊 Product State
-| Product | Status | Owner | Link |
+## 📂 Active Departments
+| Dept | Head (L5) | Status | Priority |
 | :--- | :--- | :--- | :--- |
-| CorpAI Core Spec | Active | CEO | [repo_url] |
-| CorpAI CLI | Active | CTO | [cli_url] |
-| CorpAI Portal | Active | CTO | [portal_url] |
+| **Executive** | CEO | Operational | P0 |
+| **Engineering** | CTO | Scaling | P1 |
+| **Finance** | CFO | Monitoring | P2 |
+| **Marketing** | CMO | Researching | P3 |
 
-## 🏗️ Directory Ownership
-| Path | Owner | Description |
-| :--- | :--- | :--- |
-| `/spec` | CTO | Core specification documents |
-| `/roles` | COO | Role definitions and hierarchies |
-| `/lib` | Engineering | Shared libraries and logic |
-| `/ui` | Engineering | Portal frontend |
+---
 
-## 📦 Asset Log
-- [Add existing assets here...]
+## 🛠️ Codebase & Deliverables
+*Every file or folder created by an agent must be logged here.*
+
+| Resource | Owner | Location | Description |
+| :--- | :--- | :--- | :--- |
+| **Core API** | Engineering | `/src/api` | Fast-API backend |
+| **UI Kit** | Marketing | `/src/components` | Tailwind based UI |
+| **Playbook** | CEO | `/corpai-playbook` | This organization |
+
+---
+
+## 📈 State Ledger
+*Tracks major organizational milestones.*
+
+- [YYYY-MM-DD]: Organization Initialized via Nexus Playbook.
+- [YYYY-MM-DD]: L1-L3 roles deployed to Engineering.
+- [YYYY-MM-DD]: Phase 1 MVP Completed.
+
+---
+
+## 🚫 Forbidden States
+*Conditions that must NEVER exist in this inventory.*
+1.  **Duplicate Ownership**: Two roles owning the same directory.
+2.  **Stale Docs**: Documentation more than 48h older than code.
+3.  **Untested Deployments**: Code merged without QA L1 approval.

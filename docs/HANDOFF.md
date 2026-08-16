@@ -237,6 +237,7 @@ Current facts:
 - local clone: `D:\daily-vinkel-collive-reimagined`
 - recovery workspace: `D:\daily vinkel`
 - handoff: `D:\daily vinkel\CORPAI-HANDOFF.md`
+- recovery report: `D:\daily vinkel\CORPAI-RECOVERY-REPORT.md`
 - Supabase project is paused and cannot be unpaused
 - recovery Vercel deployment: `https://daily-vinkel-collive-reimagined.vercel.app/`
 - Vercel project: `aris-projects-fdb64b1f/daily-vinkel-collive-reimagined`
@@ -275,6 +276,13 @@ Work completed tonight:
 - restored and verified the recovered public product tables in Neon
 - deployed recovery-mode DailyVinkel to Vercel production
 - pushed commit `ea99876` to improve SEO metadata on homepage, news, classifieds, category, and listing-detail pages
+- completed a 2026-04-27 4:15 PM ET v1 polish pass:
+  - homepage real-estate feed includes recovered short-term rentals
+  - classifieds hero search routes to `/search`
+  - classifieds hero copy reflects recovered inventory
+  - listing detail renders all recovered listing images
+  - `D:\daily vinkel\CORPAI-RECOVERY-REPORT.md` records the recovery outcome
+  - `npm run build` passed after the changes
 - completed the IONOS unlock/DNS support call on 2026-04-27 around 2:20 PM ET;
   Vercel DNS records were entered/confirmed and now need propagation verification
 - checked DNS after the call:
@@ -297,7 +305,7 @@ Security note:
 Next DailyVinkel steps:
 
 1. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
-2. Polish DailyVinkel v1 content/routes now that apex, `www`, and Neon-backed public reads are live.
+2. Continue DailyVinkel v1 content/routes polish now that the first recovered-public-surface report exists.
 3. Use Google Analytics/Search Console to decide which recovered articles deserve dedicated SEO landing pages next.
 
 ## Operator access

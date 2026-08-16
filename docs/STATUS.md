@@ -171,9 +171,11 @@ The product thesis is no longer "general AI org framework first." The current co
 - 2026-04-27 final DNS/domain check: corrected `www.dailyvinkel.com` in IONOS to `cname.vercel-dns.com`; Vercel certificate/alias succeeded for `www`; both `https://dailyvinkel.com/` and `https://www.dailyvinkel.com/` returned HTTP 200
 - 2026-04-27 DailyVinkel Neon-read check: production API returned 10 articles and 4 active listings from Neon; article slug and listing-id spot checks returned expected recovered records
 - 2026-04-27 DailyVinkel build check: `npm run build` passes after adding the Neon serverless API; the usual chunk-size and Browserslist warnings remain
+- 2026-04-27 DailyVinkel v1 polish check: homepage real-estate feed now includes short-term rentals, classifieds search routes to `/search`, listing detail renders all recovered images, and `D:\daily vinkel\CORPAI-RECOVERY-REPORT.md` records the recovery outcome
+- 2026-04-27 DailyVinkel v1 polish build check: `npm run build` passes; the usual chunk-size and Browserslist warnings remain
 
 ## Next best moves
 
 1. Rotate old `collive-reimagined` Stripe/Supabase/Clerk secrets because `.env` existed in git history.
-2. Polish DailyVinkel v1 content/routes now that apex, `www`, and Neon-backed public reads are live.
+2. Continue DailyVinkel v1 content/routes polish now that the first recovered-public-surface pass is documented.
 3. Replace the modeled PR review case study with real customer proof once the first pilots land.

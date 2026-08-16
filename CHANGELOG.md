@@ -4,6 +4,15 @@ All notable changes to the CorpAI standard are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v0.4.0] — 2026-08-16
+
+### Added
+- `corpai-playbook/templates/ceo/` — Added CEO Agent templates: `SOUL.md`, `AGENTS.md`, `HEARTBEAT.md`, and `TOOLS.md`.
+- `corpai-playbook/templates/worker-agent/` — Added Worker Agent templates: `SOUL.md`, `AGENTS.md`, and `HEARTBEAT.md`.
+- `NEXUS_PLAYBOOK/` — Added multi-agent operational role playbooks (Account Executive, Designer, Lead Researcher, Manager, SDR, User Researcher).
+- `docs/CRM_APPS_SCRIPT.gs` — Added Google Sheets CRM lead synchronization script.
+- `SYSTEM_STATE.md` — Added system state and organization hierarchy documentation.
+
 ---
 
 ## [v0.3.1] — 2026-03-28

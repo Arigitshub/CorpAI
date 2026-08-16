@@ -1,8 +1,10 @@
 function syncCorpAILeads() {
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('CorpAI Leads');
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheetByName('CorpAI Leads') || spreadsheet.getSheets()[0];
   if (!sheet) {
-    throw new Error('Sheet "CorpAI Leads" not found.');
+    throw new Error('No sheet found in active spreadsheet.');
   }
+  sheet.setName('CorpAI Leads');
 
   var properties = PropertiesService.getScriptProperties();
   var endpoint = properties.getProperty('CORPAI_LEADS_ENDPOINT') || 'https://corpai-intake-service.arimail-57e.workers.dev/leads?limit=100';
@@ -43,7 +45,8 @@ function syncCorpAILeads() {
   }
 
   var payload = JSON.parse(response.getContentText());
-  var rows = (payload.rows || []).map(function(row) {
+  var sourceRows = payload.leads || payload.rows || [];
+  var rows = sourceRows.map(function(row) {
     return headers.map(function(header) {
       var value = row[header];
       return value === null || value === undefined ? '' : value;
