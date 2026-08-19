@@ -239,11 +239,30 @@ export class GatewayServer {
     // -------------------------------------------------------------
     this.router.register(
       "corpai.task.dispatch",
-      async (params: TaskDispatchParams) => {
+      async (params: any) => {
         if (!params || typeof params !== "object" || !params.title) {
           throw JsonRpcException.invalidParams("Parameter 'title' is required to dispatch a task");
         }
-        const task = this.dispatcher.dispatch(params);
+        const priorityMap: Record<number, string> = {
+          1: "P1",
+          2: "P2",
+          3: "P3",
+          4: "P4",
+          5: "P5",
+        };
+        const priority =
+          typeof params.priority === "number"
+            ? priorityMap[params.priority] || "P3"
+            : params.priority || "P3";
+
+        const normalizedParams: TaskDispatchParams = {
+          ...params,
+          priority: priority as any,
+          assignedWorkerId: params.assignedWorkerId || params.workerId,
+          assignedCriticId: params.assignedCriticId || params.criticId,
+        };
+
+        const task = this.dispatcher.dispatch(normalizedParams);
         this.logActivity(`Task '${task.title}' (${task.id}) dispatched with priority ${task.priority}.`);
         this.broadcastFeed();
         return task;
@@ -421,27 +440,45 @@ export class GatewayServer {
   private setupEventListeners(): void {
     this.registry.on("agent:registered", (agent) => {
       this.broadcastNotification("corpai.event.agentRegistered", agent);
+      this.broadcastNotification("agentRegistered", agent);
       this.broadcastFeed();
     });
 
     this.registry.on("agent:unregistered", (agentId) => {
       this.broadcastNotification("corpai.event.agentUnregistered", { agentId });
+      this.broadcastNotification("agentUnregistered", { agentId });
       this.broadcastFeed();
     });
 
     this.registry.on("agent:statusChanged", (agent) => {
       this.broadcastNotification("corpai.event.agentStatusChanged", agent);
+      this.broadcastNotification("agentStatusChanged", agent);
       this.broadcastFeed();
+    });
+
+    this.registry.on("agent:heartbeat", (agent) => {
+      const payload = {
+        agentId: agent.agentId,
+        telemetry: agent.telemetry,
+        lastHeartbeatAt: agent.lastHeartbeatAt,
+        status: agent.status,
+        latestAction: agent.latestAction,
+        metadata: agent.metadata,
+      };
+      this.broadcastNotification("corpai.event.telemetryUpdate", payload);
+      this.broadcastNotification("telemetryUpdate", payload);
     });
 
     this.monitor.on("agent:expired", (agent) => {
       this.logActivity(`Agent '${agent.name}' (${agent.agentId}) expired due to missed heartbeats.`);
       this.broadcastNotification("corpai.event.agentExpired", agent);
+      this.broadcastNotification("agentExpired", agent);
       this.broadcastFeed();
     });
 
     this.dispatcher.on("task:dispatched", (task) => {
       this.broadcastNotification("corpai.event.taskDispatched", task);
+      this.broadcastNotification("taskDispatched", task);
       this.broadcastFeed();
     });
 
@@ -456,12 +493,14 @@ export class GatewayServer {
     this.dispatcher.on("task:completed", (task) => {
       this.logActivity(`Task '${task.title}' (${task.id}) approved and COMPLETED by critic review.`);
       this.broadcastNotification("corpai.event.taskCompleted", task);
+      this.broadcastNotification("taskCompleted", task);
       this.broadcastFeed();
     });
 
     this.dispatcher.on("task:failed", (task) => {
       this.logActivity(`Task '${task.title}' (${task.id}) FAILED after exhausting retries.`);
       this.broadcastNotification("corpai.event.taskFailed", task);
+      this.broadcastNotification("taskFailed", task);
       this.broadcastFeed();
     });
   }
@@ -903,6 +942,14 @@ export class GatewayServer {
     this.sessions.clear();
     this.socketToSession.clear();
     this.isListening = false;
+  }
+
+  public async start(port?: number, host?: string): Promise<{ port: number; host: string }> {
+    return this.listen(port, host);
+  }
+
+  public async stop(): Promise<void> {
+    return this.close();
   }
 
   public get running(): boolean {
