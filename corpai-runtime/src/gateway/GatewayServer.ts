@@ -7,6 +7,9 @@ import { AgentRegistry } from "../registry/AgentRegistry";
 import { HeartbeatMonitor } from "../registry/HeartbeatMonitor";
 import { TaskDispatcher } from "../dispatch/TaskDispatcher";
 import { CriticValidator } from "../dispatch/CriticValidator";
+import { ClusterDiscovery } from "../cluster/ClusterDiscovery";
+import { TokenBudgetAllocator } from "../budget/TokenBudgetAllocator";
+import { TaskJournal } from "../journal/TaskJournal";
 import { JsonRpcParser } from "../protocol/parser";
 import { JsonRpcErrorCode, JsonRpcException } from "../protocol/errors";
 import {
@@ -21,6 +24,7 @@ import {
   TaskFilter,
   TaskPriority,
 } from "../dispatch/types";
+import { JournalFilter } from "../journal/types";
 
 export interface TeamLane {
   agentId: string;
@@ -73,6 +77,9 @@ export class GatewayServer {
   public readonly monitor: HeartbeatMonitor;
   public readonly dispatcher: TaskDispatcher;
   public readonly router: MethodRouter;
+  public readonly cluster: ClusterDiscovery;
+  public readonly budget: TokenBudgetAllocator;
+  public readonly journal: TaskJournal;
 
   private httpServer: http.Server | null = null;
   private wss: WebSocketServer | null = null;
@@ -92,6 +99,10 @@ export class GatewayServer {
       minApprovalScore: options.minApprovalScore ?? 0.70,
       defaultMaxRetries: options.defaultMaxRetries ?? 3,
       enablePortalCompat: options.enablePortalCompat ?? true,
+      enableCluster: options.enableCluster ?? false,
+      clusterOptions: options.clusterOptions,
+      budgetOptions: options.budgetOptions,
+      journalOptions: options.journalOptions,
     };
 
     this.registry = new AgentRegistry();
@@ -104,6 +115,17 @@ export class GatewayServer {
       defaultMaxRetries: this.options.defaultMaxRetries,
     });
     this.router = new MethodRouter();
+
+    // Subsystems: Cluster, Budget, Journal
+    this.cluster = new ClusterDiscovery({
+      port: this.options.port,
+      hostname: this.options.host === "0.0.0.0" ? "127.0.0.1" : this.options.host,
+      enableUdp: false, // Default to in-memory/static interconnect unless explicitly started with UDP
+      ...this.options.clusterOptions,
+    });
+
+    this.budget = new TokenBudgetAllocator(this.options.budgetOptions);
+    this.journal = new TaskJournal(this.options.journalOptions);
 
     this.setupRoutes();
     this.setupEventListeners();
@@ -367,6 +389,227 @@ export class GatewayServer {
     );
 
     // -------------------------------------------------------------
+    // Multi-Node Cluster Discovery Methods
+    // -------------------------------------------------------------
+    this.router.register(
+      "corpai.cluster.getTopology",
+      async () => {
+        return this.cluster.getClusterTopology();
+      },
+      "Get full multi-node cluster topology and membership state"
+    );
+
+    this.router.register(
+      "corpai.cluster.getPeers",
+      async () => {
+        return this.cluster.getPeers();
+      },
+      "Get list of discovered cluster peer nodes"
+    );
+
+    this.router.register(
+      "corpai.cluster.ping",
+      async (params: { nodeId: string }) => {
+        if (!params?.nodeId) {
+          throw JsonRpcException.invalidParams("Parameter 'nodeId' required");
+        }
+        this.cluster.sendPing(params.nodeId);
+        const node = this.cluster.getNode(params.nodeId);
+        return {
+          nodeId: params.nodeId,
+          pingSent: true,
+          latencyMs: node?.pingLatencyMs ?? null,
+          status: node?.status ?? "unknown",
+        };
+      },
+      "Ping a cluster node and measure inter-gateway latency"
+    );
+
+    this.router.register(
+      "corpai.cluster.join",
+      async (params: { seedPeer: string }) => {
+        if (!params?.seedPeer) {
+          throw JsonRpcException.invalidParams("Parameter 'seedPeer' required");
+        }
+        return this.cluster.joinCluster(params.seedPeer);
+      },
+      "Join cluster through a seed peer gateway address"
+    );
+
+    this.router.register(
+      "corpai.cluster.leave",
+      async () => {
+        await this.cluster.leaveCluster();
+        return { left: true };
+      },
+      "Leave cluster gracefully"
+    );
+
+    this.router.register(
+      "corpai.cluster.syncGossip",
+      async (params?: { targetNodeId?: string }) => {
+        this.cluster.syncGossip(params?.targetNodeId);
+        return { synced: true, peerCount: this.cluster.getPeers().length };
+      },
+      "Trigger gossip anti-entropy sync across cluster nodes"
+    );
+
+    // -------------------------------------------------------------
+    // Agent Token Budget Allocator Methods
+    // -------------------------------------------------------------
+    this.router.register(
+      "corpai.budget.allocate",
+      async (params: { agentId: string; department?: string; tokens: number; priority?: TaskPriority; timeoutMs?: number; reason?: string }) => {
+        if (!params?.agentId || typeof params?.tokens !== "number") {
+          throw JsonRpcException.invalidParams("Parameters 'agentId' and 'tokens' required");
+        }
+        return this.budget.allocate(params);
+      },
+      "Allocate tokens for an agent with priority queue rate limiting"
+    );
+
+    this.router.register(
+      "corpai.budget.tryAllocate",
+      async (params: { agentId: string; department?: string; tokens: number; priority?: TaskPriority; reason?: string }) => {
+        if (!params?.agentId || typeof params?.tokens !== "number") {
+          throw JsonRpcException.invalidParams("Parameters 'agentId' and 'tokens' required");
+        }
+        const result = this.budget.tryAllocate(params);
+        return {
+          success: !!result,
+          result: result || null,
+        };
+      },
+      "Non-blockingly try to allocate tokens immediately"
+    );
+
+    this.router.register(
+      "corpai.budget.release",
+      async (params: { agentId?: string; department?: string; tokens: number }) => {
+        if (typeof params?.tokens !== "number") {
+          throw JsonRpcException.invalidParams("Parameter 'tokens' required");
+        }
+        this.budget.release(params);
+        return { released: true, tokens: params.tokens };
+      },
+      "Release or refund unused tokens back to department bucket"
+    );
+
+    this.router.register(
+      "corpai.budget.getUsage",
+      async (params: { department?: string; agentId?: string }) => {
+        if (params?.agentId) {
+          const agentUsage = this.budget.getAgentUsage(params.agentId);
+          if (!agentUsage) {
+            throw JsonRpcException.agentNotFound(params.agentId);
+          }
+          return agentUsage;
+        }
+        const dept = params?.department || "Engineering";
+        return this.budget.getDepartmentUsage(dept);
+      },
+      "Get token quota and usage statistics for department or agent"
+    );
+
+    this.router.register(
+      "corpai.budget.setDepartmentQuota",
+      async (params: { department: string; tokenQuota?: number; refillRatePerSec?: number; maxCapacity?: number; maxBurstMultiplier?: number }) => {
+        if (!params?.department) {
+          throw JsonRpcException.invalidParams("Parameter 'department' required");
+        }
+        return this.budget.setDepartmentQuota(params.department, params);
+      },
+      "Configure department token quota and refill parameters"
+    );
+
+    this.router.register(
+      "corpai.budget.grantEmergencyBurst",
+      async (params: { department: string; agentId?: string; burstTokens: number; reason: string; authorizedBy: string; durationMs?: number }) => {
+        if (!params?.department || typeof params?.burstTokens !== "number") {
+          throw JsonRpcException.invalidParams("Parameters 'department' and 'burstTokens' required");
+        }
+        return this.budget.grantEmergencyBurst(params);
+      },
+      "Grant emergency burst token allowance with audit trail"
+    );
+
+    this.router.register(
+      "corpai.budget.getMetrics",
+      async () => {
+        return this.budget.getMetrics();
+      },
+      "Get global token budget throughput and queue depth metrics"
+    );
+
+    // -------------------------------------------------------------
+    // Task Event Journal Methods
+    // -------------------------------------------------------------
+    this.router.register(
+      "corpai.journal.query",
+      async (params: JournalFilter) => {
+        return this.journal.query(params);
+      },
+      "Query task event journal entries with filtering and pagination"
+    );
+
+    this.router.register(
+      "corpai.journal.getTaskHistory",
+      async (params: { taskId: string }) => {
+        if (!params?.taskId) {
+          throw JsonRpcException.invalidParams("Parameter 'taskId' required");
+        }
+        return this.journal.getEventsForTask(params.taskId);
+      },
+      "Get full chronological audit trail for a task"
+    );
+
+    this.router.register(
+      "corpai.journal.replayTask",
+      async (params: { taskId: string }) => {
+        if (!params?.taskId) {
+          throw JsonRpcException.invalidParams("Parameter 'taskId' required");
+        }
+        const replayed = this.journal.replayTask(params.taskId);
+        if (!replayed) {
+          throw JsonRpcException.taskNotFound(params.taskId);
+        }
+        return replayed;
+      },
+      "Reconstruct exact task state by replaying journal event log"
+    );
+
+    this.router.register(
+      "corpai.journal.verifyIntegrity",
+      async () => {
+        return this.journal.verifyIntegrity((criticId) => {
+          const critic = this.registry.get(criticId);
+          return critic?.secretKey;
+        });
+      },
+      "Verify cryptographic hash chain and HMAC signatures across the journal"
+    );
+
+    this.router.register(
+      "corpai.journal.createSnapshot",
+      async (params?: { snapshotPath?: string }) => {
+        return this.journal.createSnapshot(params?.snapshotPath);
+      },
+      "Create state snapshot and compaction record"
+    );
+
+    this.router.register(
+      "corpai.journal.exportSqlite",
+      async () => {
+        return {
+          schema: this.journal.exportSqliteSchema(),
+          inserts: this.journal.exportSqliteInsertStatements(),
+          totalEvents: this.journal.size,
+        };
+      },
+      "Export journal as SQLite DDL and INSERT statements"
+    );
+
+    // -------------------------------------------------------------
     // Portal & Streaming Subscriptions
     // -------------------------------------------------------------
     this.router.register(
@@ -374,9 +617,7 @@ export class GatewayServer {
       async (params: { stream?: string }, context: MethodContext) => {
         const stream = params?.stream || "task_log";
         context.session.subscriptions.add(stream);
-        // Send immediate feed response back to caller
-        const feed = this.generateFeed();
-        return feed;
+        return this.generateFeed();
       },
       "Subscribe to real-time agent logs and telemetry feed"
     );
@@ -430,7 +671,7 @@ export class GatewayServer {
       async () => {
         return this.getSystemStatus();
       },
-      "Get gateway system health, active sessions, and queue statistics"
+      "Get gateway system health, active sessions, cluster topology, and journal stats"
     );
   }
 
@@ -438,15 +679,27 @@ export class GatewayServer {
    * Setup event listeners between subsystem modules
    */
   private setupEventListeners(): void {
+    // Registry events -> Journal & PubSub
     this.registry.on("agent:registered", (agent) => {
       this.broadcastNotification("corpai.event.agentRegistered", agent);
       this.broadcastNotification("agentRegistered", agent);
+      this.journal.appendSync({
+        type: "CUSTOM_EVENT",
+        agentId: agent.agentId,
+        department: agent.department,
+        payload: { action: "agent_registered", name: agent.name, role: agent.role },
+      });
       this.broadcastFeed();
     });
 
     this.registry.on("agent:unregistered", (agentId) => {
       this.broadcastNotification("corpai.event.agentUnregistered", { agentId });
       this.broadcastNotification("agentUnregistered", { agentId });
+      this.journal.appendSync({
+        type: "CUSTOM_EVENT",
+        agentId,
+        payload: { action: "agent_unregistered", agentId },
+      });
       this.broadcastFeed();
     });
 
@@ -476,13 +729,27 @@ export class GatewayServer {
       this.broadcastFeed();
     });
 
+    // Dispatcher events -> Journal & PubSub
     this.dispatcher.on("task:dispatched", (task) => {
+      this.journal.appendSync({
+        type: "TASK_DISPATCHED",
+        taskId: task.id,
+        department: task.department,
+        payload: task,
+      });
       this.broadcastNotification("corpai.event.taskDispatched", task);
       this.broadcastNotification("taskDispatched", task);
       this.broadcastFeed();
     });
 
     this.dispatcher.on("task:assigned", (task, worker, critic) => {
+      this.journal.appendSync({
+        type: "TASK_ASSIGNED",
+        taskId: task.id,
+        agentId: worker.agentId,
+        department: task.department,
+        payload: { task, worker, critic },
+      });
       this.logActivity(
         `Task '${task.title}' assigned to worker '${worker.name}' (Critic: ${critic?.name || "unassigned"}).`
       );
@@ -490,18 +757,122 @@ export class GatewayServer {
       this.broadcastFeed();
     });
 
-    this.dispatcher.on("task:completed", (task) => {
+    this.dispatcher.on("task:claimed", (task, worker) => {
+      this.journal.appendSync({
+        type: "TASK_RUNNING",
+        taskId: task.id,
+        agentId: worker.agentId,
+        department: task.department,
+        payload: task,
+      });
+    });
+
+    this.dispatcher.on("task:awaiting_critic", (task) => {
+      this.journal.appendSync({
+        type: "TASK_RESULT_SUBMITTED",
+        taskId: task.id,
+        agentId: task.assignedWorkerId,
+        department: task.department,
+        payload: { result: task.result, resultHash: task.resultHash },
+      });
+    });
+
+    this.dispatcher.on("task:completed", (task, review) => {
+      if (review) {
+        this.journal.appendSync({
+          type: "CRITIC_REVIEWED",
+          taskId: task.id,
+          agentId: review.criticId,
+          department: task.department,
+          payload: review,
+          signature: review.signature,
+        });
+      }
+      this.journal.appendSync({
+        type: "TASK_COMPLETED",
+        taskId: task.id,
+        agentId: task.assignedWorkerId,
+        department: task.department,
+        payload: task,
+        signature: review?.signature,
+      });
       this.logActivity(`Task '${task.title}' (${task.id}) approved and COMPLETED by critic review.`);
       this.broadcastNotification("corpai.event.taskCompleted", task);
       this.broadcastNotification("taskCompleted", task);
       this.broadcastFeed();
     });
 
-    this.dispatcher.on("task:failed", (task) => {
+    this.dispatcher.on("task:retry", (task, review) => {
+      this.journal.appendSync({
+        type: "TASK_RETRIED",
+        taskId: task.id,
+        agentId: task.assignedWorkerId,
+        department: task.department,
+        payload: { task, review },
+        signature: review?.signature,
+      });
+    });
+
+    this.dispatcher.on("task:failed", (task, review) => {
+      this.journal.appendSync({
+        type: "TASK_FAILED",
+        taskId: task.id,
+        agentId: task.assignedWorkerId,
+        department: task.department,
+        payload: task,
+        signature: review?.signature,
+      });
       this.logActivity(`Task '${task.title}' (${task.id}) FAILED after exhausting retries.`);
       this.broadcastNotification("corpai.event.taskFailed", task);
       this.broadcastNotification("taskFailed", task);
       this.broadcastFeed();
+    });
+
+    this.dispatcher.on("task:cancelled", (task) => {
+      this.journal.appendSync({
+        type: "TASK_CANCELLED",
+        taskId: task.id,
+        department: task.department,
+        payload: task,
+      });
+    });
+
+    // Budget events -> Journal
+    this.budget.on("token:allocated", (result) => {
+      this.journal.appendSync({
+        type: "TOKEN_BUDGET_ALLOCATED",
+        agentId: result.agentId,
+        department: result.department,
+        payload: result,
+      });
+    });
+
+    this.budget.on("burst:granted", (burst) => {
+      this.journal.appendSync({
+        type: "EMERGENCY_BURST_GRANTED",
+        department: burst.department,
+        agentId: burst.agentId,
+        payload: burst,
+      });
+    });
+
+    // Cluster events -> Journal & PubSub
+    this.cluster.on("node:joined", (node) => {
+      this.logActivity(`Cluster Node '${node.nodeId}' (${node.hostname}:${node.port}) joined cluster.`);
+      this.journal.appendSync({
+        type: "CLUSTER_NODE_JOINED",
+        payload: node,
+      });
+      this.broadcastNotification("corpai.event.clusterNodeJoined", node);
+    });
+
+    this.cluster.on("node:left", (nodeId, node) => {
+      this.logActivity(`Cluster Node '${nodeId}' left cluster.`);
+      this.journal.appendSync({
+        type: "CLUSTER_NODE_LEFT",
+        payload: { nodeId, node },
+      });
+      this.broadcastNotification("corpai.event.clusterNodeLeft", { nodeId, node });
     });
   }
 
@@ -735,6 +1106,8 @@ export class GatewayServer {
       taskStatusCounts[t.status] = (taskStatusCounts[t.status] || 0) + 1;
     }
 
+    const topology = this.cluster.getClusterTopology();
+
     return {
       ok: true,
       service: "corpai-runtime",
@@ -745,6 +1118,18 @@ export class GatewayServer {
       totalTasks: tasks.length,
       taskStatusCounts,
       monitorActive: this.monitor.active,
+      cluster: {
+        clusterId: topology.clusterId,
+        localNodeId: topology.localNodeId,
+        totalNodes: topology.totalNodes,
+        onlineNodes: topology.onlineCount,
+      },
+      budgetMetrics: this.budget.getMetrics(),
+      journalStats: {
+        totalEvents: this.journal.size,
+        latestSeq: this.journal.getLatestSequence(),
+        rootHash: this.journal.getLatestHash(),
+      },
     };
   }
 
@@ -891,6 +1276,10 @@ export class GatewayServer {
 
     // Start background loops
     this.monitor.start();
+    if (this.options.enableCluster) {
+      await this.cluster.start();
+    }
+
     this.broadcastInterval = setInterval(() => {
       this.broadcastFeed();
     }, 5000);
@@ -921,6 +1310,9 @@ export class GatewayServer {
     }
 
     this.monitor.stop();
+    await this.cluster.stop();
+    this.budget.destroy();
+    this.journal.close();
 
     if (this.wss) {
       for (const client of this.wss.clients) {

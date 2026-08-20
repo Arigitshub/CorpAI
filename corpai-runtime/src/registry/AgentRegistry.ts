@@ -204,6 +204,13 @@ export class AgentRegistry extends EventEmitter {
   }
 
   /**
+   * Get secret key for an agent by ID.
+   */
+  public getSecretKey(agentId: string): string | undefined {
+    return this.agents.get(agentId)?.secretKey;
+  }
+
+  /**
    * List agents matching filters.
    */
   public list(filter?: AgentFilter): AgentRecord[] {

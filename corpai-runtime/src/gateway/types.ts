@@ -1,5 +1,8 @@
 import { WebSocket } from "ws";
 import { JsonRpcId } from "../protocol/types";
+import { ClusterDiscoveryOptions } from "../cluster/types";
+import { TokenBudgetAllocatorOptions } from "../budget/types";
+import { TaskJournalOptions } from "../journal/types";
 
 export interface ClientSession {
   id: string;
@@ -45,4 +48,8 @@ export interface GatewayServerOptions {
   minApprovalScore?: number;
   defaultMaxRetries?: number;
   enablePortalCompat?: boolean;
+  enableCluster?: boolean;
+  clusterOptions?: ClusterDiscoveryOptions;
+  budgetOptions?: TokenBudgetAllocatorOptions;
+  journalOptions?: TaskJournalOptions;
 }
